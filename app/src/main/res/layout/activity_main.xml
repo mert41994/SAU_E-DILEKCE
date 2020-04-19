@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="10"
+    android:screenOrientation="portrait"
+    tools:context=".MainActivity">
+
+    <RelativeLayout
+        android:layout_weight="0"
+        android:layout_width="match_parent"
+        android:layout_height="0dp">
+
+
+
+
+    </RelativeLayout>
+
+    <GridLayout
+
+        android:alignmentMode="alignMargins"
+        android:columnOrderPreserved="false"
+
+        android:layout_weight="10"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:id="@+id/fragmentHolder"
+        android:orientation="vertical"
+
+        >
+
+    </GridLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"/>
+
+
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+
+        android:layout_width="match_parent"
+        android:background="?android:attr/windowBackground"
+        android:theme="@style/AppTheme"
+        android:layout_height="wrap_content"
+        android:id="@+id/nav_menu"
+        app:menu="@menu/bottom_navigation"/>
+
+
+</LinearLayout>
