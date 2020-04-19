@@ -20,6 +20,8 @@ class HistoryFragment : Fragment() {
         //Setting this fragment to layout
         val view: View = inflater.inflate(R.layout.fragment_history, container, false)
 
+        TODO("ADD ITEM LIST")
+
 
         return view
     }

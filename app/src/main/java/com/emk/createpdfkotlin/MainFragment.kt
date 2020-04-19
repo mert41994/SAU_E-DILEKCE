@@ -47,7 +47,7 @@ class MainFragment : Fragment() {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
-
+        TODO("PROGRESS BAR FOR EVERY BUTTON")
         view.btn_create_pdf?.setOnClickListener{
             createPDFFile(Common.getAppPath(this) + file_name)
 
@@ -323,6 +323,8 @@ class MainFragment : Fragment() {
             val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
             addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
 
+            TODO("Reading file from the assets folder and adding the PDF file, ERROR HERE")
+
                 //ADDING IMAGE - ATTEMPT 1
 //            var filePath = "assets/imageAssets/jpg.jpg"
 //            var image: Image? = Image.getInstance(filePath)
@@ -335,16 +337,16 @@ class MainFragment : Fragment() {
 //            document.add(image)
 //                ADDING IMAGE - ATTEMPT 3
 
-            var imageSource = "assets/imageAssets/jpg.jpg"
-            val ims: InputStream? = context?.assets?.open(imageSource)
-            ims?.read()
-            val image: Image = Image.getInstance(imageSource)
-            image.alignment = Image.MIDDLE
-
-            //add image to document
-
-            //add image to document
-            document.add(image)
+//            var imageSource = "assets/imageAssets/jpg.jpg"
+//            val ims: InputStream? = context?.assets?.open(imageSource)
+//            ims?.read()
+//            val image: Image = Image.getInstance(imageSource)
+//            image.alignment = Image.MIDDLE
+//
+//            //add image to document
+//
+//            //add image to document
+//            document.add(image)
 
             //close
 
