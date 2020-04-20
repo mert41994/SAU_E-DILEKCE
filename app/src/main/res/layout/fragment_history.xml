@@ -1,4 +1,5 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_sign_up"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -44,7 +45,8 @@
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:smoothScrollbar="true"
             android:fastScrollStyle="@color/colorPrimaryDark"
-            android:divider="@color/colorPrimaryDark"
+            android:divider="@color/colorAccent"
+            android:dividerHeight="0.1dp"
             android:footerDividersEnabled="true"
             android:headerDividersEnabled="true"/>
 

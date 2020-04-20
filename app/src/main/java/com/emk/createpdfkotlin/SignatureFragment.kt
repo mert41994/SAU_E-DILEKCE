@@ -101,9 +101,9 @@ class SignatureFragment : Fragment() {
         fun addJpgSignatureToGallery(signature: Bitmap): Boolean {
             var result = false
             try {
-                val photo = File(
-                    getAlbumStorageDir("UserSignature"),
-                    String.format("Signature.jpg")
+                    val photo = File(
+                        getAlbumStorageDir("UserSignature"),
+                        String.format("Signature.jpg")
                 )//Image name and Location
                 saveBitmapToJPG(signature, photo)
                 scanMediaFile(photo)

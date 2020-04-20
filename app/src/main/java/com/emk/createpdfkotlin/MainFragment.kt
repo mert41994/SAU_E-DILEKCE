@@ -4,7 +4,8 @@ package com.emk.createpdfkotlin
 import android.content.Context
 import android.content.res.AssetManager
 import android.os.Bundle
-import android.os.ParcelFileDescriptor.open
+import android.os.Environment
+import android.os.Environment.DIRECTORY_PICTURES
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.util.Log
@@ -22,13 +23,6 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
-import java.nio.channels.AsynchronousFileChannel.open
-import java.nio.channels.AsynchronousServerSocketChannel.open
-import java.nio.channels.AsynchronousSocketChannel.open
-import java.nio.channels.DatagramChannel.open
-import java.nio.channels.FileChannel.open
-import java.nio.channels.Pipe.open
-import java.nio.channels.Selector.open
 
 
 /**
@@ -47,7 +41,6 @@ class MainFragment : Fragment() {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
-        TODO("PROGRESS BAR FOR EVERY BUTTON")
         view.btn_create_pdf?.setOnClickListener{
             createPDFFile(Common.getAppPath(this) + file_name)
 
@@ -93,7 +86,7 @@ class MainFragment : Fragment() {
 
         }
 
-        view.btn_create_pdf10.setOnClickListener{
+        view.btn_create_pdf10?.setOnClickListener{
 
             createPDFFile10(Common.getAppPath(this) + file_name)
 
@@ -117,7 +110,7 @@ class MainFragment : Fragment() {
     private fun createPDFFile(path: String) {
         if(File(path).exists())
             File(path).delete()
-        val any = try {
+        try {
             val document = Document()
             //Save
             PdfWriter.getInstance(document, FileOutputStream(path))
@@ -323,7 +316,7 @@ class MainFragment : Fragment() {
             val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
             addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
 
-            TODO("Reading file from the assets folder and adding the PDF file, ERROR HERE")
+
 
                 //ADDING IMAGE - ATTEMPT 1
 //            var filePath = "assets/imageAssets/jpg.jpg"
@@ -335,15 +328,16 @@ class MainFragment : Fragment() {
 //            val image: Image? = Image.getInstance(imageSource)
 //            image?.setAbsolutePosition(36.0F, 400.0F);
 //            document.add(image)
-//                ADDING IMAGE - ATTEMPT 3
 
+//                ADDING IMAGE - ATTEMPT 3
 //            var imageSource = "assets/imageAssets/jpg.jpg"
 //            val ims: InputStream? = context?.assets?.open(imageSource)
 //            ims?.read()
-//            val image: Image = Image.getInstance(imageSource)
+//            val afile= assets.open("/scripts/truite.rive")
+//            val image: Image = Image.getInstance(afile)
 //            image.alignment = Image.MIDDLE
 //
-//            //add image to document
+//   //          //add image to document
 //
 //            //add image to document
 //            document.add(image)
