@@ -4,6 +4,7 @@ package com.emk.createpdfkotlin
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.media.MediaScannerConnection
 import android.os.Bundle
 import android.os.Environment
 import android.print.PrintAttributes
@@ -83,7 +84,7 @@ class MainFragment : Fragment() {
         }
         view.btn_create_pdf9.setOnClickListener{
 
-            createPDFFile10(Common.getAppPath(this) + file_name)
+            createPDFFile9(Common.getAppPath(this) + file_name)
         }
 
         view.btn_create_pdf10?.setOnClickListener{
@@ -371,7 +372,7 @@ class MainFragment : Fragment() {
             addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
 
 
-            //addImageFromGallery(document)
+            addImageFromGallery(document)
 
             //close
 
@@ -456,7 +457,7 @@ class MainFragment : Fragment() {
             val rectDoc = document.pageSize
             val width = rectDoc.width
             val height = rectDoc.height
-            val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
+            val imageStartX = width - document.rightMargin() - 300f//Absolute Position X
             val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
             System.gc()
 
@@ -478,10 +479,10 @@ class MainFragment : Fragment() {
         }
     }
 
-//    @Throws(DocumentException::class)
-//    private fun addImageFromGallery(document: Document)
-//    {
-//        try {
+    @Throws(DocumentException::class)
+    private fun addImageFromGallery(document: Document)
+    {
+        try {
 //            val rectDoc = document.pageSize
 //            val width = rectDoc.width
 //            val height = rectDoc.height
@@ -491,7 +492,7 @@ class MainFragment : Fragment() {
 //            val absoluteFile = "/UserSignature/Signature.jpg"
 //            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
 //            val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//            val ims: InputStream? = dataLocation?.//("/UserSignature/Signature.jpg")//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
+//            val ims: InputStream? = dataLocation?.inputStream()//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
 //            val bmp = BitmapFactory.decodeStream(ims)
 //            val stream = ByteArrayOutputStream()
 //            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
@@ -502,12 +503,12 @@ class MainFragment : Fragment() {
 //            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
 //            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
 //            document.add(img)
-//        } catch (e: Exception)
-//        {
-//            e.printStackTrace()
-//            Log.e("JPG ERROR", e.message)
-//        }
-//    }
+        } catch (e: Exception)
+        {
+            e.printStackTrace()
+            Log.e("JPG ERROR", e.message)
+        }
+    }
 
 
 }
