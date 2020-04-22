@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.os.Environment
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.util.Log
@@ -82,8 +83,7 @@ class MainFragment : Fragment() {
         }
         view.btn_create_pdf9.setOnClickListener{
 
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
-
+            createPDFFile10(Common.getAppPath(this) + file_name)
         }
 
         view.btn_create_pdf10?.setOnClickListener{
@@ -138,7 +138,6 @@ class MainFragment : Fragment() {
                     BaseFont.IDENTITY_H,
                     BaseFont.EMBEDDED
                 )
-
             val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
             val name = pref.getString("NAME", "DEFAULT_VALUE")
             val facility = pref.getString("FACILITY", "DEFAULT_VALUE")
@@ -281,7 +280,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun createPDFFile10(path: String) {
+    private fun createPDFFile9(path: String) {
         if(File(path).exists())
             File(path).delete()
         val any = try {
@@ -336,6 +335,61 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun createPDFFile10(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        val any = try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 20.0f
+            val valueFontSize = 26.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
+
+
+            //addImageFromGallery(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+            Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
+
+        }
+    }
+
     private fun sendPDF() {
 
     }
@@ -350,7 +404,7 @@ class MainFragment : Fragment() {
 
         }catch (e:Exception)
         {
-            Log.e("ERROR", e.message)
+            Log.e("PRINTING ERROR", e.message)
         }
     }
 
@@ -394,43 +448,66 @@ class MainFragment : Fragment() {
         document.add(p)
 
     }
-//    ERROR HERE
-//    @Throws(DocumentException::class)
-//    private fun addImage(document: Document) {
-//        var filePath = Environment.getExternalStorageDirectory(Environment.DIRECTORY_PICTURES), "/UserSignature/Signature.jpg"
-//        var image: Image? = Image.getInstance(filePath)
-//        document.add(image)
-//
-//    }
 
     @Throws(DocumentException::class)
     private fun addImage(document: Document)
     {
-        try { // Get user Settings GeneralSettings getUserSettings =
+        try {
             val rectDoc = document.pageSize
             val width = rectDoc.width
             val height = rectDoc.height
-            val imageStartX = width - document.rightMargin() - 315f
-            val imageStartY = height - document.topMargin() - 500f
+            val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
+            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
             System.gc()
 
-            val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")
+            val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
             val bmp = BitmapFactory.decodeStream(ims)
             val stream = ByteArrayOutputStream()
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
             val byteArray: ByteArray = stream.toByteArray()
-            // PdfImage img = new PdfImage(arg0, arg1, arg2)
 
-            // Converting byte array into image Image img =
             val img = Image.getInstance(byteArray) // img.scalePercent(50);
             img.alignment = Image.TEXTWRAP
-            img.scaleAbsolute(200f, 200f)
+            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
             img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
             document.add(img)
-        } catch (e: java.lang.Exception) {
+        } catch (e: Exception)
+        {
             e.printStackTrace()
+            Log.e("JPG ERROR", e.message)
         }
     }
+
+//    @Throws(DocumentException::class)
+//    private fun addImageFromGallery(document: Document)
+//    {
+//        try {
+//            val rectDoc = document.pageSize
+//            val width = rectDoc.width
+//            val height = rectDoc.height
+//            val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
+//            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
+//            System.gc()
+//            val absoluteFile = "/UserSignature/Signature.jpg"
+//            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
+//            val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+//            val ims: InputStream? = dataLocation?.//("/UserSignature/Signature.jpg")//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
+//            val bmp = BitmapFactory.decodeStream(ims)
+//            val stream = ByteArrayOutputStream()
+//            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//            val byteArray: ByteArray = stream.toByteArray()
+//
+//            val img = Image.getInstance(byteArray) // img.scalePercent(50);
+//            img.alignment = Image.TEXTWRAP
+//            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
+//            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
+//            document.add(img)
+//        } catch (e: Exception)
+//        {
+//            e.printStackTrace()
+//            Log.e("JPG ERROR", e.message)
+//        }
+//    }
 
 
 }
