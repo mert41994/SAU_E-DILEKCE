@@ -2,10 +2,9 @@ package com.emk.createpdfkotlin
 
 
 import android.content.Context
-import android.content.res.AssetManager
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Environment
-import android.os.Environment.DIRECTORY_PICTURES
 import android.print.PrintAttributes
 import android.print.PrintManager
 import android.util.Log
@@ -20,6 +19,7 @@ import com.itextpdf.text.pdf.PdfWriter
 import com.itextpdf.text.pdf.draw.LineSeparator
 import com.itextpdf.text.pdf.draw.VerticalPositionMark
 import kotlinx.android.synthetic.main.fragment_main.view.*
+import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -317,30 +317,7 @@ class MainFragment : Fragment() {
             addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
 
 
-
-                //ADDING IMAGE - ATTEMPT 1
-//            var filePath = "assets/imageAssets/jpg.jpg"
-//            var image: Image? = Image.getInstance(filePath)
-//            document.add(image)
-
-//                ADDING IMAGE - ATTEMPT 2
-//            var imageSource = "assets/imageAssets/jpg.jpg"
-//            val image: Image? = Image.getInstance(imageSource)
-//            image?.setAbsolutePosition(36.0F, 400.0F);
-//            document.add(image)
-
-//                ADDING IMAGE - ATTEMPT 3
-//            var imageSource = "assets/imageAssets/jpg.jpg"
-//            val ims: InputStream? = context?.assets?.open(imageSource)
-//            ims?.read()
-//            val afile= assets.open("/scripts/truite.rive")
-//            val image: Image = Image.getInstance(afile)
-//            image.alignment = Image.MIDDLE
-//
-//   //          //add image to document
-//
-//            //add image to document
-//            document.add(image)
+            addImage(document)
 
             //close
 
@@ -429,6 +406,30 @@ class MainFragment : Fragment() {
     @Throws(DocumentException::class)
     private fun addImage(document: Document)
     {
+        try { // Get user Settings GeneralSettings getUserSettings =
+            val rectDoc = document.pageSize
+            val width = rectDoc.width
+            val height = rectDoc.height
+            val imageStartX = width - document.rightMargin() - 315f
+            val imageStartY = height - document.topMargin() - 500f
+            System.gc()
+
+            val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")
+            val bmp = BitmapFactory.decodeStream(ims)
+            val stream = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            val byteArray: ByteArray = stream.toByteArray()
+            // PdfImage img = new PdfImage(arg0, arg1, arg2)
+
+            // Converting byte array into image Image img =
+            val img = Image.getInstance(byteArray) // img.scalePercent(50);
+            img.alignment = Image.TEXTWRAP
+            img.scaleAbsolute(200f, 200f)
+            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
+            document.add(img)
+        } catch (e: java.lang.Exception) {
+            e.printStackTrace()
+        }
     }
 
 
