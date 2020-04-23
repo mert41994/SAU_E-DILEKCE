@@ -4,11 +4,12 @@ package com.emk.createpdfkotlin
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.media.MediaScannerConnection
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.print.PrintAttributes
 import android.print.PrintManager
+import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -21,10 +22,7 @@ import com.itextpdf.text.pdf.PdfWriter
 import com.itextpdf.text.pdf.draw.LineSeparator
 import com.itextpdf.text.pdf.draw.VerticalPositionMark
 import kotlinx.android.synthetic.main.fragment_main.view.*
-import java.io.ByteArrayOutputStream
-import java.io.File
-import java.io.FileOutputStream
-import java.io.InputStream
+import java.io.*
 
 
 /**
@@ -483,30 +481,35 @@ class MainFragment : Fragment() {
     private fun addImageFromGallery(document: Document)
     {
         try {
-//            val rectDoc = document.pageSize
-//            val width = rectDoc.width
-//            val height = rectDoc.height
-//            val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
-//            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
-//            System.gc()
-//            val absoluteFile = "/UserSignature/Signature.jpg"
-//            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
-//            val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-//            val ims: InputStream? = dataLocation?.inputStream()//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
-//            val bmp = BitmapFactory.decodeStream(ims)
-//            val stream = ByteArrayOutputStream()
-//            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-//            val byteArray: ByteArray = stream.toByteArray()
-//
-//            val img = Image.getInstance(byteArray) // img.scalePercent(50);
-//            img.alignment = Image.TEXTWRAP
-//            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
-//            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
-//            document.add(img)
+            val rectDoc = document.pageSize
+            val width = rectDoc.width
+            val height = rectDoc.height
+            val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
+            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
+            System.gc()
+            val absoluteFile = "/UserSignature/Signature.jpg"
+
+            val photoUri: Uri = Uri.withAppendedPath(
+                MediaStore.Images.Media.getContentUri(absoluteFile), absoluteFile
+            )
+            Log.d("PhotoUriDebugTag", "Value: $photoUri")
+            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
+            val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val ims: InputStream? = dataLocation?.inputStream()//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
+            val bmp = BitmapFactory.decodeStream(ims)
+            val stream = ByteArrayOutputStream()
+            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+            val byteArray: ByteArray = stream.toByteArray()
+
+            val img = Image.getInstance(byteArray) // img.scalePercent(50);
+            img.alignment = Image.TEXTWRAP
+            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
+            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
+            document.add(img)
         } catch (e: Exception)
         {
             e.printStackTrace()
-            Log.e("JPG ERROR", e.message)
+            Log.e("addImagefromGalleryError", e.message)
         }
     }
 
