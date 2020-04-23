@@ -5,9 +5,10 @@ This app creates PDF files with user inputs. Gets info and signature data from u
 Latest Status
 
 MainActivity : Shows Fragments and BottomNavigationBar
+
 UserFragment.kt : Gets User Info Input and writes that data to SharedPreferences -> Operational
 
-HistoryFragment.kt : Collects Created PDF's and shows that data on ListView. -> Not Operational
+HistoryFragment.kt : Collects Created PDF's and shows that data on ListView. -> Not Operational // Gets Image from assets yet
 
 SignatureFragment.kt : Gets User Signature with a SignaturePad -> Operational
 
