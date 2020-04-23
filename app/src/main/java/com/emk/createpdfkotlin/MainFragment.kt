@@ -15,6 +15,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.text.trimmedLength
 import androidx.fragment.app.Fragment
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.BaseFont
@@ -487,12 +488,11 @@ class MainFragment : Fragment() {
             val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
             val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
             System.gc()
-            val absoluteFile = "/UserSignature/Signature.jpg"
+            val absoluteFile = "UserSignature/Signature.jpg"
 
             val photoUri: Uri = Uri.withAppendedPath(
-                MediaStore.Images.Media.getContentUri(absoluteFile), absoluteFile
-            )
-            Log.d("PhotoUriDebugTag", "Value: $photoUri")
+                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), absoluteFile)
+            Log.d("PhotoUriDebugTag", "Value: $photoUri") //Log: Value: content://media/external/images/media/UserSignature/Signature.jpg
             //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
             val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
             val ims: InputStream? = dataLocation?.inputStream()//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
@@ -509,9 +509,10 @@ class MainFragment : Fragment() {
         } catch (e: Exception)
         {
             e.printStackTrace()
-            Log.e("addImagefromGalleryError", e.message)
+            Log.e("addImageFromGallery", e.message)
         }
     }
+
 
 
 }
