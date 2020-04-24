@@ -27,6 +27,20 @@ class UserFragment : Fragment() {
         //Setting this layout view
         val view: View = inflater.inflate(R.layout.fragment_user, container, false)
 
+        val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+        val name = pref.getString("NAME", "DEFAULT_NAME")
+        val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+        val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+        val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+        val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+        if (name != "DEFAULT_NAME" && facility != "DEFAULT_FACILITY" && branch != "DEFAULT_BRANCH" && telNumber != "DEFAULT_TELNUMBER" && tcNo !="DEFAULT_TCNO")
+        {
+            view.etUserName.setText(name)
+            view.etBranch.setText(branch)
+            view.etFacility.setText(facility)
+            view.etTcNumber.setText(tcNo)
+            view.etTelNumber.setText(telNumber)
+        }
         //Save Button Functionality
         view.btnSave.setOnClickListener{
 
@@ -80,6 +94,11 @@ class UserFragment : Fragment() {
                         Toast.makeText(activity,
                             "Bilgiler başarıyla kaydedildi.\nBilgileri göster tuşu ile kontrol edebilirsiniz.",
                         Toast.LENGTH_LONG ).show()
+                    view.etUserName.setText(name)
+                    view.etBranch.setText(branch)
+                    view.etFacility.setText(facility)
+                    view.etTcNumber.setText(tcNo)
+                    view.etTelNumber.setText(telNumber)
                 }
 
 

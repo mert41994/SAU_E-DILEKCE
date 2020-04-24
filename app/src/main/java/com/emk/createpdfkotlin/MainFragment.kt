@@ -4,18 +4,15 @@ package com.emk.createpdfkotlin
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.print.PrintAttributes
 import android.print.PrintManager
-import android.provider.MediaStore
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.text.trimmedLength
 import androidx.fragment.app.Fragment
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.BaseFont
@@ -449,7 +446,7 @@ class MainFragment : Fragment() {
 
     }
 
-    @Throws(DocumentException::class)
+    @Throws(DocumentException::class , IOException::class)
     private fun addImage(document: Document)
     {
         try {
@@ -478,7 +475,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    @Throws(DocumentException::class)
+    @Throws(DocumentException::class , IOException::class)
     private fun addImageFromGallery(document: Document)
     {
         try {
@@ -488,14 +485,20 @@ class MainFragment : Fragment() {
             val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
             val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
             System.gc()
-            val absoluteFile = "UserSignature/Signature.jpg"
+            //val absoluteFile = "UserSignature/Signature.jpg"
 
-            val photoUri: Uri = Uri.withAppendedPath(
-                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), absoluteFile)
-            Log.d("PhotoUriDebugTag", "Value: $photoUri") //Log: Value: content://media/external/images/media/UserSignature/Signature.jpg
-            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
-            val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val ims: InputStream? = dataLocation?.inputStream()//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
+//            val photoUri: Uri = Uri.withAppendedPath(
+//                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), absoluteFile)
+//            Log.d("PhotoUriDebugTag", "Value: $photoUri") //Log: Value: content://media/external/images/media/UserSignature/Signature.jpg
+//            val photoUriString = photoUri.toString()
+//            val inputStream = ByteArrayInputStream(photoUriString.toByteArray(Charsets.UTF_8))
+//            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
+//            //val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val picturesDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
+            val mInputStream = BufferedInputStream(FileInputStream("UserSignature/Signature.jpg"), 16*1024)
+            mInputStream.mark(16*1024)
+            val ims: InputStream? = mInputStream//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
+
             val bmp = BitmapFactory.decodeStream(ims)
             val stream = ByteArrayOutputStream()
             bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
@@ -512,7 +515,6 @@ class MainFragment : Fragment() {
             Log.e("addImageFromGallery", e.message)
         }
     }
-
 
 
 }
