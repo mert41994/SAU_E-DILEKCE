@@ -2,8 +2,10 @@ package com.emk.createpdfkotlin
 
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.print.PrintAttributes
@@ -28,6 +30,7 @@ import java.io.*
  */
 class MainFragment : Fragment() {
     val file_name: String = "test_pdf.pdf"
+    val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -75,8 +78,7 @@ class MainFragment : Fragment() {
 
         view.btn_create_pdf8.setOnClickListener{
 
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
-
+            createPDFFile8(Common.getAppPath(this) + file_name)
         }
         view.btn_create_pdf9.setOnClickListener{
 
@@ -277,6 +279,92 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun createPDFFile8(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        val any = try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 20.0f
+            val valueFontSize = 26.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+
+            //Title
+
+            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
+            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
+
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
+
+            addLineSeperator(document)
+
+            //close
+
+            document.close()
+//            val file: File = File.createTempFile("test","pdf")
+//            var writer = PdfWriter.getInstance(document, FileOutputStream(file.path))
+
+            sendPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
+
     private fun createPDFFile9(path: String) {
         if(File(path).exists())
             File(path).delete()
@@ -388,6 +476,22 @@ class MainFragment : Fragment() {
     }
 
     private fun sendPDF() {
+        try {
+            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
+            val eMailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:MAILADRESS")).apply {
+                putExtra(Intent.EXTRA_SUBJECT, "DENEME")
+                putExtra(Intent.EXTRA_TEXT, "DENEME")
+                putExtra(Intent.EXTRA_STREAM, file_name_location)
+            }
+            eMailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            eMailIntent.type = "text/plain"
+            startActivity(eMailIntent)
+        }
+        catch (e:Exception)
+        {
+            Log.e("PRINTING ERROR", e.message)
+        }
+
 
     }
 
@@ -486,7 +590,8 @@ class MainFragment : Fragment() {
             val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
             System.gc()
 
-            val ims = FileInputStream("/storage/emulated/0/Pictures/UserSignature/Signature.jpg")
+            val fileLocation = "/storage/emulated/0/Pictures/UserSignature/Signature.jpg"
+            val ims = FileInputStream(fileLocation)
             Log.d("FileInputStreamDebugTag", "Value: $ims")
 
             val bmp = BitmapFactory.decodeStream(ims)

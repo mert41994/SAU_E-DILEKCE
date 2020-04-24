@@ -122,30 +122,31 @@
 
         </LinearLayout>
     </ScrollView>
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:textColor="@color/colorWhite"
-        android:background="@drawable/et_button_background"
-        android:enabled="false"
-        android:text="Kaydet"
-        />
-    <Button
-        android:id="@+id/btnCheckInfo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/et_button_background"
-        android:textColor="@color/colorWhite"
-        android:text="Bilgileri Göster"
-        />
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/et_button_background"
+            android:enabled="false"
+            android:text="Kaydet"
+            />
+        <Button
+            android:id="@+id/btnCheckInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/et_button_background"
+            android:textColor="@color/colorWhite"
+            android:text="Bilgileri Göster"
+            />
 
 
 

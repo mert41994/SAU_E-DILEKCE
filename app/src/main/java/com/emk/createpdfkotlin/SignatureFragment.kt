@@ -1,6 +1,9 @@
 package com.emk.createpdfkotlin
 
+import android.Manifest
+import android.app.Activity
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Color
@@ -12,6 +15,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat.checkSelfPermission
 import androidx.fragment.app.Fragment
 import com.github.gcacace.signaturepad.views.SignaturePad
 import java.io.File
@@ -43,6 +48,9 @@ class SignatureFragment : Fragment() {
     ): View? {
 
         val view: View = inflater.inflate(R.layout.fragment_signature, container, false)
+
+            writePermissionApproved()
+            readPermissionApproved()
 
             val mClearButton = view.findViewById<View>(R.id.clear_button)
             val mSaveButton = view.findViewById<View>(R.id.save_button)
@@ -136,9 +144,28 @@ class SignatureFragment : Fragment() {
 
 
 
-
-
         return view
+    }
+
+    private fun writePermissionApproved(): Boolean {
+
+        val context = context ?: return false
+
+        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(
+            context,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+    }
+
+
+    private fun readPermissionApproved(): Boolean {
+
+        val context = context ?: return false
+
+        return PackageManager.PERMISSION_GRANTED == checkSelfPermission(
+            context,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+        )
     }
 
 }
