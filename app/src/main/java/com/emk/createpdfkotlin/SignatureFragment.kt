@@ -92,6 +92,8 @@ class SignatureFragment : Fragment() {
                     Environment.DIRECTORY_PICTURES
                 ), albumName
             )
+            val filePath = file.toString()
+            Log.d("FileInputStreamDebugTag", "Value: $filePath")
             if (!file.mkdirs()) {
                 Log.e("SignaturePad", "Directory not created")
             }

@@ -33,7 +33,12 @@ class UserFragment : Fragment() {
         val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
         val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
         val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
-        if (name != "DEFAULT_NAME" && facility != "DEFAULT_FACILITY" && branch != "DEFAULT_BRANCH" && telNumber != "DEFAULT_TELNUMBER" && tcNo !="DEFAULT_TCNO")
+
+        if (name != "DEFAULT_NAME"
+            && facility != "DEFAULT_FACILITY"
+            && branch != "DEFAULT_BRANCH"
+            && telNumber != "DEFAULT_TELNUMBER"
+            && tcNo !="DEFAULT_TCNO")
         {
             view.etUserName.setText(name)
             view.etBranch.setText(branch)

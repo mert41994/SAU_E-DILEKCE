@@ -482,22 +482,12 @@ class MainFragment : Fragment() {
             val rectDoc = document.pageSize
             val width = rectDoc.width
             val height = rectDoc.height
-            val imageStartX = width - document.rightMargin() - 350f//Absolute Position X
+            val imageStartX = width - document.rightMargin() - 300f//Absolute Position X
             val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
             System.gc()
-            //val absoluteFile = "UserSignature/Signature.jpg"
 
-//            val photoUri: Uri = Uri.withAppendedPath(
-//                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL), absoluteFile)
-//            Log.d("PhotoUriDebugTag", "Value: $photoUri") //Log: Value: content://media/external/images/media/UserSignature/Signature.jpg
-//            val photoUriString = photoUri.toString()
-//            val inputStream = ByteArrayInputStream(photoUriString.toByteArray(Charsets.UTF_8))
-//            //val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
-//            //val dataLocation = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val picturesDir = activity?.getExternalFilesDir(Environment.DIRECTORY_PICTURES)
-            val mInputStream = BufferedInputStream(FileInputStream("UserSignature/Signature.jpg"), 16*1024)
-            mInputStream.mark(16*1024)
-            val ims: InputStream? = mInputStream//("/UserSignature/Signature.jpg")//open("imageAssets/cat.jpg")//File Location
+            val ims = FileInputStream("/storage/emulated/0/Pictures/UserSignature/Signature.jpg")
+            Log.d("FileInputStreamDebugTag", "Value: $ims")
 
             val bmp = BitmapFactory.decodeStream(ims)
             val stream = ByteArrayOutputStream()
@@ -512,7 +502,7 @@ class MainFragment : Fragment() {
         } catch (e: Exception)
         {
             e.printStackTrace()
-            Log.e("addImageFromGallery", e.message)
+            Log.e("JPG ERROR", e.message)
         }
     }
 
