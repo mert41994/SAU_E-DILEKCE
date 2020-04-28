@@ -13,12 +13,11 @@ import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.InputStream
 
 class MainActivity : AppCompatActivity() {
 
+    private val manager = supportFragmentManager
 
-    val manager = supportFragmentManager
     private val mOnNavigationItemSelectedListener = BottomNavigationView.OnNavigationItemSelectedListener {item->
 
         when(item.itemId){
@@ -55,7 +54,9 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    val file_name: String = "test_pdf.pdf"
+    override fun onBackPressed() {
+        finish()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,18 +73,17 @@ class MainActivity : AppCompatActivity() {
             .withPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             .withListener(object: PermissionListener{
                 override fun onPermissionGranted(response: PermissionGrantedResponse?) {
-//                   }
+
                 }
 
                 override fun onPermissionRationaleShouldBeShown(
                     permission: PermissionRequest?,
                     token: PermissionToken?
                 ) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
                 }
 
                 override fun onPermissionDenied(response: PermissionDeniedResponse?) {
-                    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
                 }
 
             })
@@ -97,7 +97,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun createFragmentUser()
+    private fun createFragmentUser()
     {
         val transaction = manager.beginTransaction()
         val fragment = UserFragment()
@@ -109,7 +109,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun createFragmentHistory()
+    private fun createFragmentHistory()
     {
         val transaction = manager.beginTransaction()
         val fragment = HistoryFragment()
@@ -119,7 +119,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun createFragmentMain()
+    private fun createFragmentMain()
     {
         val transaction = manager.beginTransaction()
         val fragment = MainFragment()
@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-    fun createFragmentSignature()
+    private fun createFragmentSignature()
     {
         val transaction = manager.beginTransaction()
         val fragment = SignatureFragment()
