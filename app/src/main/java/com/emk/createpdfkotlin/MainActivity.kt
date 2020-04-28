@@ -22,24 +22,24 @@ class MainActivity : AppCompatActivity() {
 
         when(item.itemId){
             R.id.nav_home ->{
-                Toast.makeText(this,"Home",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this,"Home",Toast.LENGTH_SHORT).show()
                 createFragmentMain()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_user ->{
                 createFragmentUser()
-                Toast.makeText(this,"User",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this,"User",Toast.LENGTH_SHORT).show()
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_history -> {
                 createFragmentHistory()
-                Toast.makeText(this,"History",Toast.LENGTH_SHORT).show()
+                //Toast.makeText(this,"History",Toast.LENGTH_SHORT).show()
 
                 return@OnNavigationItemSelectedListener true
             }
             R.id.nav_signature ->{
                 createFragmentSignature()
-                Toast.makeText(this,"Signature",Toast.LENGTH_LONG).show()
+                //Toast.makeText(this,"Signature",Toast.LENGTH_LONG).show()
 
                 return@OnNavigationItemSelectedListener true
             }
