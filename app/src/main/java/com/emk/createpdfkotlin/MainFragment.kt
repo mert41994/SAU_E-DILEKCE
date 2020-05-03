@@ -1,7 +1,9 @@
 package com.emk.createpdfkotlin
 
 
+import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -14,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itextpdf.text.*
@@ -25,10 +28,10 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.io.*
 
 
-class MainFragment : Fragment(), CallbackListener {
+class MainFragment : Fragment() {
     private val file_name: String = "test_pdf.pdf"
     private val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
-    private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
+    //private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
 
 
     override fun onCreateView(
@@ -39,20 +42,18 @@ class MainFragment : Fragment(), CallbackListener {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
-        val editor = sharedPrefs?.edit()
+        //val editor = sharedPrefs?.edit()
 
         view.btn_create_pdf?.setOnClickListener{
             createPDFFile(Common.getAppPath(this) + file_name)
-            editor?.apply()
 
         }
         view.btn_create_pdf2.setOnClickListener{
             createPDFFile2(Common.getAppPath(this) + file_name)
-            editor?.apply()
 
         }
         view.btn_create_pdf3.setOnClickListener{
-            showDialog3()
+
             createPDFFile3(Common.getAppPath(this) + file_name)
 
         }
@@ -69,6 +70,7 @@ class MainFragment : Fragment(), CallbackListener {
 
         view.btn_create_pdf6.setOnClickListener{
 
+            popUpEditText()
             Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
 
         }
@@ -284,9 +286,7 @@ class MainFragment : Fragment(), CallbackListener {
     private fun createPDFFile3(path: String) {
         if(File(path).exists())
             File(path).delete()
-
         try {
-            //val data = onDataReceived(data: data)
           val document = Document()
             //Save
             PdfWriter.getInstance(document, FileOutputStream(path))
@@ -350,10 +350,10 @@ class MainFragment : Fragment(), CallbackListener {
             addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
             addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
 
-            //addNewItem(document, "DialogFragmentData:", Element.ALIGN_LEFT, headingStyle)
-            //addNewItem(document, data.toString(), Element.ALIGN_LEFT, valueStyle)
-
             addLineSeperator(document)
+
+//            addNewItem(document, "Alert Value: ", Element.ALIGN_LEFT, headingStyle)
+//            addNewItem(document, editTextValue.toString(), Element.ALIGN_LEFT, valueStyle)
 
             //close
 
@@ -600,6 +600,7 @@ class MainFragment : Fragment(), CallbackListener {
         }
     }
 
+
     @Throws(DocumentException::class)
     private fun addNewItemWithLeftAndRight(
         document: Document,
@@ -702,15 +703,27 @@ class MainFragment : Fragment(), CallbackListener {
         }
     }
 
-    override fun onDataReceived(data: String) {
-        val dialogFragmentData = data
+    fun popUpEditText() {
+
+        val alert = AlertDialog.Builder(activity)
+
+        val editText = EditText(activity)
+        alert.setMessage("Enter Your Message")
+        alert.setTitle("Enter Your Title")
+        alert.setView(editText)
+        alert.setPositiveButton("Yes Option"
+        ) { dialog, whichButton -> //What ever you want to do with the value
+            //OR
+            val editTextValue = editText.text.toString()
+            Log.d("editTextValue", "Value: $editTextValue")
+        }
+        alert.setNegativeButton("No Option"
+        ) { dialog, whichButton ->
+            dialog.dismiss()
+            // what ever you want to do with No option.
+        }
+        alert.show()
+
     }
-
-    private fun showDialog3() {
-        val dialogFragment = ButtonThreeDialogFragment(this@MainFragment)
-        activity?.supportFragmentManager?.let { dialogFragment.show(it, "signature") }
-    }
-
-
 
 }
