@@ -25,33 +25,35 @@ import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.io.*
 
 
-/**
- * A simple [Fragment] subclass.
- */
-class MainFragment : Fragment() {
-    val file_name: String = "test_pdf.pdf"
-    val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
+class MainFragment : Fragment(), CallbackListener {
+    private val file_name: String = "test_pdf.pdf"
+    private val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
+    private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
 
-
-
     ): View? {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
+        val editor = sharedPrefs?.edit()
+
         view.btn_create_pdf?.setOnClickListener{
             createPDFFile(Common.getAppPath(this) + file_name)
+            editor?.apply()
 
         }
         view.btn_create_pdf2.setOnClickListener{
             createPDFFile2(Common.getAppPath(this) + file_name)
+            editor?.apply()
 
         }
         view.btn_create_pdf3.setOnClickListener{
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
+            showDialog3()
+            createPDFFile3(Common.getAppPath(this) + file_name)
 
         }
 
@@ -197,7 +199,7 @@ class MainFragment : Fragment() {
     private fun createPDFFile2(path: String) {
         if(File(path).exists())
             File(path).delete()
-        val any = try {
+        try {
             val document = Document()
             //Save
             PdfWriter.getInstance(document, FileOutputStream(path))
@@ -279,6 +281,95 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun createPDFFile3(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+
+        try {
+            //val data = onDataReceived(data: data)
+          val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 20.0f
+            val valueFontSize = 26.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+
+            //Title
+
+            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
+            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
+
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
+
+            //addNewItem(document, "DialogFragmentData:", Element.ALIGN_LEFT, headingStyle)
+            //addNewItem(document, data.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
     private fun createPDFFile8(path: String) {
         if(File(path).exists())
             File(path).delete()
@@ -610,6 +701,16 @@ class MainFragment : Fragment() {
             Log.e("JPG ERROR", e.message)
         }
     }
+
+    override fun onDataReceived(data: String) {
+        val dialogFragmentData = data
+    }
+
+    private fun showDialog3() {
+        val dialogFragment = ButtonThreeDialogFragment(this@MainFragment)
+        activity?.supportFragmentManager?.let { dialogFragment.show(it, "signature") }
+    }
+
 
 
 }

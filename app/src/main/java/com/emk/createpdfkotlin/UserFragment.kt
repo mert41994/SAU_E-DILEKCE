@@ -51,8 +51,19 @@ class UserFragment : Fragment() {
 
             try {
                 //Create SharedPreferences file
+                try {
 
-                val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+                    val pref = this.activity!!.getPreferences(Context.MODE_PRIVATE)
+                }
+                catch (e: Exception)
+                {
+                    Toast.makeText(
+                        activity,
+                        "SharedPreferences dosyası oluşturulamadı.",
+                        Toast.LENGTH_LONG
+                    ).show()
+
+                }
                 val editor = pref.edit()
 
                 //save name
@@ -140,7 +151,7 @@ class UserFragment : Fragment() {
             override fun onTextChanged(s: CharSequence, start: Int,
                                        before: Int, count: Int) {
 
-                Toast.makeText(activity, "Kayıt Butonu Etkinleştirildi.", Toast.LENGTH_SHORT).show()
+                //Toast.makeText(activity, "Kayıt Butonu Etkinleştirildi.", Toast.LENGTH_SHORT).show()
 
             }
         })

@@ -93,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         nav_menu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
         //getPreferences Settings
-        val pref = getPreferences(Context.MODE_PRIVATE)
+        //val pref = getPreferences(Context.MODE_PRIVATE)
 
     }
 
