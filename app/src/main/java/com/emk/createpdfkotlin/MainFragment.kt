@@ -71,7 +71,6 @@ class MainFragment : Fragment() {
         view.btn_create_pdf6.setOnClickListener{
 
             popUpEditText()
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
 
         }
         view.btn_create_pdf7.setOnClickListener{
@@ -370,6 +369,93 @@ class MainFragment : Fragment() {
 
         }
     }
+
+    private fun createPDFFile6(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 20.0f
+            val valueFontSize = 26.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+
+            //Title
+
+            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
+            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
+
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
+            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
+
+            addLineSeperator(document)
+
+            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
+
+            addLineSeperator(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
+
+
     private fun createPDFFile8(path: String) {
         if(File(path).exists())
             File(path).delete()
@@ -708,22 +794,20 @@ class MainFragment : Fragment() {
         val alert = AlertDialog.Builder(activity)
 
         val editText = EditText(activity)
-        alert.setMessage("Enter Your Message")
-        alert.setTitle("Enter Your Title")
+        alert.setMessage("Sebep")
+        alert.setTitle("Gereken bilgiyi giriniz.")
         alert.setView(editText)
-        alert.setPositiveButton("Yes Option"
+        alert.setPositiveButton("Onayla"
         ) { dialog, whichButton -> //What ever you want to do with the value
             //OR
+//            val editTextValue = editText.text.toString()
+//            Log.d("editTextValue", "Value: $editTextValue")
             val editTextValue = editText.text.toString()
-            Log.d("editTextValue", "Value: $editTextValue")
-        }
-        alert.setNegativeButton("No Option"
-        ) { dialog, whichButton ->
-            dialog.dismiss()
-            // what ever you want to do with No option.
+            createPDFFile6(Common.getAppPath(this) + file_name)
+
         }
         alert.show()
-
+        
     }
 
 }
