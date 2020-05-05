@@ -50,11 +50,25 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:hint="Ad - Soyad"
                     android:background="@drawable/et_bg_border"
                     android:autofillHints="" />
+
+                <EditText
+                    android:id="@+id/etSchoolNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:ems="10"
+                    android:gravity="center"
+                    android:inputType="textPersonName"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:hint="Okul No"
+                    android:background="@drawable/et_bg_border"
+                    />
 
                 <EditText
                     android:id="@+id/etFacility"
@@ -64,8 +78,8 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:hint="Fakülte"
                     android:background="@drawable/et_bg_border"
                     />
@@ -78,8 +92,8 @@
                     android:gravity="center"
                     android:inputType="textPersonName"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:hint="Bölüm"
                     android:background="@drawable/et_bg_border"
                     />
@@ -92,8 +106,8 @@
                     android:maxEms="11"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:hint="TC Kimlik Numarası"
                     android:inputType="numberDecimal"
                     android:maxLength="11"
@@ -107,12 +121,13 @@
                     android:gravity="center"
                     android:ems="10"
                     android:layout_marginTop="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginRight="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
                     android:hint="Telefon Numarası"
                     android:background="@drawable/et_bg_border"
                     android:inputType="numberDecimal"
                     android:layout_marginBottom="10dp"/>
+
 
 
 
@@ -135,6 +150,7 @@
             android:enabled="false"
             android:text="Kaydet"
             />
+
         <Button
             android:id="@+id/btnCheckInfo"
             android:layout_width="match_parent"

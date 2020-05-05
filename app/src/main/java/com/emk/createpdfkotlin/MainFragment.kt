@@ -23,6 +23,7 @@ import com.itextpdf.text.pdf.BaseFont
 import com.itextpdf.text.pdf.PdfWriter
 import com.itextpdf.text.pdf.draw.LineSeparator
 import com.itextpdf.text.pdf.draw.VerticalPositionMark
+import kotlinx.android.synthetic.main.alert_view.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.io.*
 import java.text.SimpleDateFormat
@@ -30,10 +31,11 @@ import java.util.*
 
 
 class MainFragment : Fragment() {
+    val sdf = SimpleDateFormat("dd/MM/yyyy")
     private val file_name: String = "test_pdf.pdf"
     private val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
-    val sdf = SimpleDateFormat("dd/MM/yyyy")
-    val currentDate = sdf.format(Date())
+    private val currentDate = sdf.format(Date())
+    private var button6EditTextValue: String = ""
     //private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
 
 
@@ -149,6 +151,7 @@ class MainFragment : Fragment() {
             val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
             //Title
 
@@ -239,6 +242,7 @@ class MainFragment : Fragment() {
             val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
             //Title
 
@@ -324,6 +328,7 @@ class MainFragment : Fragment() {
             val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
             //Title
 
@@ -412,6 +417,7 @@ class MainFragment : Fragment() {
             val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
 
             //Title
@@ -426,11 +432,11 @@ class MainFragment : Fragment() {
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
 
             //addLineSeperator(document)
-            addNewItem(document, "Fakültenizin " + "OKUL_NO" + " numaralı öğrencisiyim. Belirtmiş olduğum tek ders sınavına kabulüm konusunda gerekeni saygılarımla arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addNewItem(document, facility.toString() + " ," + branch.toString() +"'nin " + schoolNumber.toString() + " numaralı öğrencisiyim. Belirtmiş olduğum tek ders sınavına kabulüm konusunda gerekeni saygılarımla arz ederim.", Element.ALIGN_CENTER, headingStyle)
             addBlankLineSeperator(document)
             addBlankLineSeperator(document)
 
-            addNewItemWithLeftAndRight(document, "Ders Adı:", "DERS_ADI", titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Ders Adı:", button6EditTextValue , titleStyle, valueStyle)
             addLineSeperator(document)
 
             //ITEMS
@@ -497,6 +503,7 @@ class MainFragment : Fragment() {
             val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
             //Title
 
@@ -775,8 +782,8 @@ class MainFragment : Fragment() {
             val rectDoc = document.pageSize
             val width = rectDoc.width
             val height = rectDoc.height
-            val imageStartX = width - document.rightMargin() - 120f//Absolute Position X
-            val imageStartY = height - document.topMargin() - 730f//Absolute Position Y
+            val imageStartX = width - document.rightMargin() - 150f//Absolute Position X
+            val imageStartY = height - document.topMargin() - 780f//Absolute Position Y
             System.gc()
 
             val fileLocation = "/storage/emulated/0/Pictures/UserSignature/Signature.jpg"
@@ -806,22 +813,27 @@ class MainFragment : Fragment() {
 
         val editText = EditText(activity)
         alert.setMessage("Sebep")
-        alert.setTitle("Gereken bilgiyi giriniz.")
+        alert.setTitle("Tek Ders Sınavı için gereken ders adını giriniz.")
         alert.setView(editText)
+        //val layout = R.layout.alert_view
+        //alert.setView(layout)
         alert.setIcon(R.drawable.ic_warning_black_24dp)
         alert.setPositiveButton("Onayla")
         {
-            dialog, whichButton -> //What ever you want to do with the value
-            val editTextValue = editText.text.toString()
-            Log.d("editTextValue", "Value: $editTextValue")
+                dialog, _ -> //What ever you want to do with the value
+            button6EditTextValue = editText.text.toString()
+
+            //val something = etCourse1.text.toString()
+            //button6EditTextValue = etCourse1.text.toString()
+            //Log.d("editTextValue", "Value: $editTextValue")
             //Calling the Actual Function
             createPDFFile6(Common.getAppPath(this) + file_name)
 
         }
         alert.setNegativeButton("İptal Et")
         {
-            dialog, whichButton->
-            dialog.dismiss()
+            dialog, _ ->
+                dialog.dismiss()
         }
         alert.setCancelable(false)
 

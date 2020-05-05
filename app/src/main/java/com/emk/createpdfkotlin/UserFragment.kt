@@ -33,8 +33,10 @@ class UserFragment : Fragment() {
         val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
         val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
         val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+        val schoolNumber = pref.getString("SCHOOLNUMBER","DEFAULT_SCHOOLNUMBER")
 
         if (name != "DEFAULT_NAME"
+            && schoolNumber != "DEFAULT_SCHOOLNUMBER"
             && facility != "DEFAULT_FACILITY"
             && branch != "DEFAULT_BRANCH"
             && telNumber != "DEFAULT_TELNUMBER"
@@ -45,6 +47,7 @@ class UserFragment : Fragment() {
             view.etFacility.setText(facility)
             view.etTcNumber.setText(tcNo)
             view.etTelNumber.setText(telNumber)
+            view.etSchoolNumber.setText(schoolNumber)
         }
         //Save Button Functionality
         view.btnSave.setOnClickListener{
@@ -73,6 +76,7 @@ class UserFragment : Fragment() {
                 editor.putString("BRANCH", etBranch.text.toString())
                 editor.putString("TELNUMBER", etTelNumber.text.toString())
                 editor.putString("TCNUMBER", etTcNumber.text.toString())
+                editor.putString("SCHOOLNUMBER", etSchoolNumber.text.toString())
                 //commit changes
                 editor.apply()
 
@@ -81,9 +85,11 @@ class UserFragment : Fragment() {
                 val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
                 val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
                 val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
+                val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
                 if(
                     name.toString() == "DEFAULT_VALUE" &&
+                    schoolNumber.toString() == "DEFAULT_VALUE" &&
                     facility.toString() == "DEFAULT_VALUE" &&
                     branch.toString() == "DEFAULT_VALUE" &&
                     telNumber.toString() == "DEFAULT_VALUE" &&
@@ -95,6 +101,7 @@ class UserFragment : Fragment() {
                 }
 
                 if(name.toString() == "" ||
+                    schoolNumber.toString() == "" ||
                     facility.toString() == "" ||
                     branch.toString() == "" ||
                     telNumber.toString() == "" ||
@@ -115,6 +122,7 @@ class UserFragment : Fragment() {
                     view.etFacility.setText(facility)
                     view.etTcNumber.setText(tcNo)
                     view.etTelNumber.setText(telNumber)
+                    view.etSchoolNumber.setText(schoolNumber)
                 }
 
 
@@ -136,6 +144,7 @@ class UserFragment : Fragment() {
             {
                 view.btnSave.isEnabled =
                             (view.etUserName != null) &&
+                            (view.etSchoolNumber != null) &&
                             (view.etBranch != null) &&
                             (view.etFacility != null) &&
                             (view.etTcNumber != null) &&
@@ -168,9 +177,11 @@ class UserFragment : Fragment() {
             val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
                     if(
                 name.toString() == "DEFAULT_VALUE" &&
+                schoolNumber.toString() == "DEFAULT_VALUE" &&
                 facility.toString() == "DEFAULT_VALUE" &&
                 branch.toString() == "DEFAULT_VALUE" &&
                 telNumber.toString() == "DEFAULT_VALUE" &&
@@ -183,6 +194,7 @@ class UserFragment : Fragment() {
 
                 if(name.toString() == "" ||
                     facility.toString() == "" ||
+                    schoolNumber.toString() == "" ||
                     branch.toString() == "" ||
                     telNumber.toString() == "" ||
                     tcNo.toString() == "")
