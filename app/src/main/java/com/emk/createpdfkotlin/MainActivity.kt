@@ -2,8 +2,10 @@ package com.emk.createpdfkotlin
 
 import android.Manifest
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.karumi.dexter.Dexter
@@ -55,7 +57,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        finish()
+
+        val alert = AlertDialog.Builder(this)
+        alert.setTitle("Çıkış")
+        alert.setMessage("Çıkış yapılacaktır.\nOnaylıyor musunuz?")
+        alert.setIcon(R.drawable.ic_error_black_24dp)
+
+        alert.setPositiveButton("Evet")
+        { _, _ ->
+            finish()
+        }
+
+        alert.setNegativeButton("Hayır")
+        {dialog, _ ->
+            dialog.dismiss()
+        }
+        alert.show()
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

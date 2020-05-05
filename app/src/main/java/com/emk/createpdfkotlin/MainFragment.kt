@@ -3,7 +3,6 @@ package com.emk.createpdfkotlin
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -17,6 +16,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itextpdf.text.*
@@ -797,6 +797,7 @@ class MainFragment : Fragment() {
         alert.setMessage("Sebep")
         alert.setTitle("Gereken bilgiyi giriniz.")
         alert.setView(editText)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
         alert.setPositiveButton("Onayla"
         )
         { dialog, whichButton -> //What ever you want to do with the value
