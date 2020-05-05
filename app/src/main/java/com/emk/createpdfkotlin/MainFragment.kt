@@ -16,7 +16,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.EditText
-import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itextpdf.text.*
@@ -26,11 +25,15 @@ import com.itextpdf.text.pdf.draw.LineSeparator
 import com.itextpdf.text.pdf.draw.VerticalPositionMark
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.io.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 
 class MainFragment : Fragment() {
     private val file_name: String = "test_pdf.pdf"
     private val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
+    val sdf = SimpleDateFormat("dd/MM/yyyy")
+    val currentDate = sdf.format(Date())
     //private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
 
 
@@ -70,7 +73,7 @@ class MainFragment : Fragment() {
 
         view.btn_create_pdf6.setOnClickListener{
 
-            popUpEditText()
+            button6()
 
         }
         view.btn_create_pdf7.setOnClickListener{
@@ -410,34 +413,33 @@ class MainFragment : Fragment() {
             val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
 
+
             //Title
 
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
-
-            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
-
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Tek Ders Kabul Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
 
+            //addLineSeperator(document)
+            addNewItem(document, "Fakültenizin " + "OKUL_NO" + " numaralı öğrencisiyim. Belirtmiş olduğum tek ders sınavına kabulüm konusunda gerekeni saygılarımla arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            addNewItemWithLeftAndRight(document, "Ders Adı:", "DERS_ADI", titleStyle, valueStyle)
             addLineSeperator(document)
-
-            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addLineSeperator(document)
-
-            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
 
             //ITEMS
-            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), titleStyle, valueStyle)
 
-            addLineSeperator(document)
+            addImageFromGallery(document)
 
             //close
 
@@ -714,6 +716,15 @@ class MainFragment : Fragment() {
     }
 
     @Throws(DocumentException::class)
+    private fun addBlankLineSeperator(document: Document) {
+        val lineSeparator = LineSeparator()
+        lineSeparator.lineColor = BaseColor(255,255,255,68)
+        addLineSpace(document)
+        document.add(Chunk(lineSeparator))
+        addLineSpace(document)
+    }
+
+    @Throws(DocumentException::class)
     private fun addLineSpace(document: Document) {
         document.add(Paragraph(""))
 
@@ -764,8 +775,8 @@ class MainFragment : Fragment() {
             val rectDoc = document.pageSize
             val width = rectDoc.width
             val height = rectDoc.height
-            val imageStartX = width - document.rightMargin() - 300f//Absolute Position X
-            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
+            val imageStartX = width - document.rightMargin() - 120f//Absolute Position X
+            val imageStartY = height - document.topMargin() - 730f//Absolute Position Y
             System.gc()
 
             val fileLocation = "/storage/emulated/0/Pictures/UserSignature/Signature.jpg"
@@ -789,7 +800,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    fun popUpEditText() {
+    private fun button6() {
 
         val alert = AlertDialog.Builder(activity)
 
@@ -798,12 +809,12 @@ class MainFragment : Fragment() {
         alert.setTitle("Gereken bilgiyi giriniz.")
         alert.setView(editText)
         alert.setIcon(R.drawable.ic_warning_black_24dp)
-        alert.setPositiveButton("Onayla"
-        )
-        { dialog, whichButton -> //What ever you want to do with the value
-            //OR
+        alert.setPositiveButton("Onayla")
+        {
+            dialog, whichButton -> //What ever you want to do with the value
             val editTextValue = editText.text.toString()
             Log.d("editTextValue", "Value: $editTextValue")
+            //Calling the Actual Function
             createPDFFile6(Common.getAppPath(this) + file_name)
 
         }
