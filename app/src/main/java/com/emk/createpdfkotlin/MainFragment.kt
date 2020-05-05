@@ -798,14 +798,22 @@ class MainFragment : Fragment() {
         alert.setTitle("Gereken bilgiyi giriniz.")
         alert.setView(editText)
         alert.setPositiveButton("Onayla"
-        ) { dialog, whichButton -> //What ever you want to do with the value
+        )
+        { dialog, whichButton -> //What ever you want to do with the value
             //OR
-//            val editTextValue = editText.text.toString()
-//            Log.d("editTextValue", "Value: $editTextValue")
             val editTextValue = editText.text.toString()
+            Log.d("editTextValue", "Value: $editTextValue")
             createPDFFile6(Common.getAppPath(this) + file_name)
 
         }
+        alert.setNegativeButton("İptal Et")
+        {
+            dialog, whichButton->
+            dialog.dismiss()
+        }
+        alert.setCancelable(false)
+
+
         alert.show()
         
     }
