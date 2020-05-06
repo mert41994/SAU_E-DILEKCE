@@ -34,12 +34,12 @@ class MainFragment : Fragment() {
     private val fileName: String = "test_pdf.pdf"
     private val fileNameLocation: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
     private val currentDate = sdf.format(Date())
-    private var tempEditTextValue: String = ""
-    private var tempEditTextValue2: String = ""
-    private var tempEditTextValue3: String = ""
-    private var tempEditTextValue4: String = ""
-    private var tempEditTextValue5: String = ""
-    private var tempEditTextValue6: String = ""
+    private var tempEditTextValue: String = "-"
+    private var tempEditTextValue2: String = "-"
+    private var tempEditTextValue3: String = "-"
+    private var tempEditTextValue4: String = "-"
+    private var tempEditTextValue5: String = "-"
+    private var tempEditTextValue6: String = "-"
 
 
     override fun onCreateView(
@@ -51,26 +51,25 @@ class MainFragment : Fragment() {
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
         view.btn_create_pdf?.setOnClickListener{
-            createPDFFile(Common.getAppPath(this) + fileName)
+            button1()
 
         }
         view.btn_create_pdf2.setOnClickListener{
-            createPDFFile2(Common.getAppPath(this) + fileName)
+            button2()
 
         }
         view.btn_create_pdf3.setOnClickListener{
-
-            createPDFFile3(Common.getAppPath(this) + fileName)
+            button3()
 
         }
 
         view.btn_create_pdf4.setOnClickListener{
 
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
+            button4()
         }
         view.btn_create_pdf5.setOnClickListener{
 
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
+            button5()
 
         }
 
@@ -86,17 +85,17 @@ class MainFragment : Fragment() {
         }
 
         view.btn_create_pdf8.setOnClickListener{
+            button8()
 
-            createPDFFile8(Common.getAppPath(this) + fileName)
         }
         view.btn_create_pdf9.setOnClickListener{
 
-            createPDFFile9(Common.getAppPath(this) + fileName)
+            button9()
         }
 
         view.btn_create_pdf10?.setOnClickListener{
 
-            createPDFFile10(Common.getAppPath(this) + fileName)
+            button10()
 
         }
 
@@ -134,8 +133,9 @@ class MainFragment : Fragment() {
 
             //Font Settings
             val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
+            val headingFontSize = 18.0f
             val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
 
 
             //Custom Font
@@ -146,47 +146,43 @@ class MainFragment : Fragment() {
                     BaseFont.IDENTITY_H,
                     BaseFont.EMBEDDED
                 )
+
+            //Getting data from UserFragment using SharedPreferences
             val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
-            val name = pref.getString("NAME", "DEFAULT_VALUE")
-            val facility = pref.getString("FACILITY", "DEFAULT_VALUE")
-            val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
-            val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
-            val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
             val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+
 
             //Title
 
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "Başlık", Element.ALIGN_CENTER, titleStyle)
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Sınav Not İtiraz Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
 
-            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "Header", Element.ALIGN_LEFT, headingStyle)
-
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "Value Style", Element.ALIGN_LEFT, valueStyle)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
 
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() + " ," + schoolNumber.toString() +" numaralı öğrencisiyim. "+ tempEditTextValue + " isimli dersin " + tempEditTextValue2 + " sınav kağıdının tekrar incelenmmesini istiyorum.\nGereğini arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
             addLineSeperator(document)
-
-            addNewItem(document, "TEMEL", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, "DURSUN", Element.ALIGN_LEFT, valueStyle)
-            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addLineSeperator(document)
-
-            addNewItem(document, "IDRIS", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, "ELBA", Element.ALIGN_LEFT, valueStyle)
 
             //ITEMS
-            addNewItemWithLeftAndRight(document, "Hamsi", "(0.0%)", titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "Hamsi2", "20", titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
 
-            addLineSeperator(document)
-
-            //TOTAL
-            addLineSpace(document)
-            addLineSpace(document)
-
-            addNewItemWithLeftAndRight(document, "TOTAL", "20", titleStyle, valueStyle)
+            addImageFromGallery(document)
 
             //close
 
@@ -223,8 +219,9 @@ class MainFragment : Fragment() {
 
             //Font Settings
             val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
+            val headingFontSize = 18.0f
             val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
 
 
             //Custom Font
@@ -245,34 +242,33 @@ class MainFragment : Fragment() {
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
             val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
+
             //Title
 
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Kayıt Dondurma Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
 
-            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
-
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
 
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() + " ," + schoolNumber.toString() +" numaralı öğrencisiyim. "+ tempEditTextValue + " sebebinden dolayı " + tempEditTextValue2 + " döneminde kaydımı dondurmak istiyorum.\nGereğini arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
             addLineSeperator(document)
-
-            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addLineSeperator(document)
-
-            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
 
             //ITEMS
-            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
 
-            addLineSeperator(document)
+            addImageFromGallery(document)
 
             //close
 
@@ -294,7 +290,7 @@ class MainFragment : Fragment() {
         if(File(path).exists())
             File(path).delete()
         try {
-          val document = Document()
+            val document = Document()
             //Save
             PdfWriter.getInstance(document, FileOutputStream(path))
             //Open to Write
@@ -309,8 +305,9 @@ class MainFragment : Fragment() {
 
             //Font Settings
             val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
+            val headingFontSize = 18.0f
             val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
 
 
             //Custom Font
@@ -331,37 +328,209 @@ class MainFragment : Fragment() {
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
             val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
+
             //Title
 
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Mezun Olmama İsteği Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
 
-            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
-
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
 
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() + " ," + schoolNumber.toString() +" numaralı öğrencisiyim. " + tempEditTextValue2 + " döneminde " + tempEditTextValue + " sebebinden dolayı mezun olmak istemiyorum.\nGereğini arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
             addLineSeperator(document)
-
-            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addLineSeperator(document)
-
-            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
 
             //ITEMS
-            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
 
+            addImageFromGallery(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
+
+    private fun createPDFFile4(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 18.0f
+            val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+
+
+            //Title
+
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Öğretim Türü Değişikliği Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
+
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() + " ," + schoolNumber.toString() +" numaralı öğrencisiyim. "+ tempEditTextValue + " sebebinden dolayı 1. Öğretimden, 2. Öğretime geçiş yapmak istiyorum.\nGereğini arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
             addLineSeperator(document)
 
-//            addNewItem(document, "Alert Value: ", Element.ALIGN_LEFT, headingStyle)
-//            addNewItem(document, editTextValue.toString(), Element.ALIGN_LEFT, valueStyle)
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
+
+            addImageFromGallery(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
+
+    private fun createPDFFile5(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 18.0f
+            val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+
+
+            //Title
+
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Ders Sildirme Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
+
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() +"'nin " + schoolNumber.toString() + " numaralı öğrencisiyim. AKTS fazlalığından dolayı aşağıda belirttiğim ders/derslerin silinmesini arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            addNewItemWithLeftAndRight(document, "Silinecek Ders 1:", tempEditTextValue , leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Silinecek Ders 2:", tempEditTextValue2 , leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Silinecek Ders 3:", tempEditTextValue3 , leftAndRightStyle, leftAndRightStyle)
+            addLineSeperator(document)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
+
+            addImageFromGallery(document)
 
             //close
 
@@ -398,8 +567,9 @@ class MainFragment : Fragment() {
 
             //Font Settings
             val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
+            val headingFontSize = 18.0f
             val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
 
 
             //Custom Font
@@ -424,27 +594,28 @@ class MainFragment : Fragment() {
             //Title
 
             val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "Sakarya Üniversitesi Tek Ders Kabul Formu", Element.ALIGN_CENTER, titleStyle)
+            addNewItem(document, "Sakarya Üniversitesi ÇAP Ders Saydırma Formu", Element.ALIGN_CENTER, titleStyle)
             addLineSeperator(document)
             addBlankLineSeperator(document)
             addBlankLineSeperator(document)
             addBlankLineSeperator(document)
+
             val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
 
             //addLineSeperator(document)
-            addNewItem(document, facility.toString() + " ," + branch.toString() +"'nin " + schoolNumber.toString() + " numaralı öğrencisiyim. Belirtmiş olduğum tek ders sınavına kabulüm konusunda gerekeni saygılarımla arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addNewItem(document, facility.toString() + " ," + branch.toString() +"'nin " + schoolNumber.toString() + " numaralı öğrencisiyim. " + tempEditTextValue + " bölümünde ÇAP yapmaktayım." + tempEditTextValue + " bölümünde aldığım " + tempEditTextValue2 + " dersinin bölümümüzde verilen " + tempEditTextValue3 + " dersinin yerine sayılması hususunda gereğini arz ederim."  , Element.ALIGN_CENTER, headingStyle)
             addBlankLineSeperator(document)
             addBlankLineSeperator(document)
 
-            addNewItemWithLeftAndRight(document, "Ders Adı:", tempEditTextValue , titleStyle, valueStyle)
             addLineSeperator(document)
 
             //ITEMS
-            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
 
             addImageFromGallery(document)
 
@@ -552,13 +723,10 @@ class MainFragment : Fragment() {
         }
     }
 
-
-
-
     private fun createPDFFile8(path: String) {
         if(File(path).exists())
             File(path).delete()
-        val any = try {
+        try {
             val document = Document()
             //Save
             PdfWriter.getInstance(document, FileOutputStream(path))
@@ -574,8 +742,9 @@ class MainFragment : Fragment() {
 
             //Font Settings
             val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
+            val headingFontSize = 18.0f
             val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
 
 
             //Custom Font
@@ -596,142 +765,32 @@ class MainFragment : Fragment() {
             val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
             val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
 
+
             //Title
 
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "SAKARYA ÜNİVERSİTESİ DENEME FORMU", Element.ALIGN_CENTER, titleStyle)
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Çakışan Ders Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
 
-            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, colorAccent)
-            addNewItem(document, "İsim", Element.ALIGN_LEFT, headingStyle)
-
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
             val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, name.toString(), Element.ALIGN_LEFT, valueStyle)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
+
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() +"'nin " + schoolNumber.toString() + " numaralı öğrencisiyim. " + tempEditTextValue + " şubesi ile " + tempEditTextValue2 + " şubesi çakıştığından dolayı " + tempEditTextValue3 + " şubesiyle dersi almak istiyorum.\nGereğini arz ederim."  , Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
 
             addLineSeperator(document)
-
-            addNewItem(document, "Fakülte", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, facility.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addNewItem(document, "Branş", Element.ALIGN_LEFT, headingStyle)
-            addNewItem(document, branch.toString(), Element.ALIGN_LEFT, valueStyle)
-
-            addLineSeperator(document)
-
-            addNewItem(document, "Telefon No ve TC No", Element.ALIGN_LEFT, headingStyle)
 
             //ITEMS
-            addNewItemWithLeftAndRight(document, "Telefon No", telNumber.toString(), titleStyle, valueStyle)
-            addNewItemWithLeftAndRight(document, "TC Kimlik No", tcNo.toString(), titleStyle, valueStyle)
-
-            addLineSeperator(document)
-
-            //close
-
-            document.close()
-//            val file: File = File.createTempFile("test","pdf")
-//            var writer = PdfWriter.getInstance(document, FileOutputStream(file.path))
-
-            sendPDF()
-
-
-
-
-        } catch (e: Exception) {
-            Log.e("ERROR", "" + e.message)
-
-        }
-    }
-
-    private fun createPDFFile9(path: String) {
-        if(File(path).exists())
-            File(path).delete()
-        val any = try {
-            val document = Document()
-            //Save
-            PdfWriter.getInstance(document, FileOutputStream(path))
-            //Open to Write
-            document.open()
-            //Settings
-            document.pageSize = PageSize.A4
-            document.addCreationDate()
-            document.addAuthor("AUTHOR_NAME")
-            document.addCreator("CREATOR_NAME")
-
-
-
-            //Font Settings
-            val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
-            val valueFontSize = 26.0f
-
-
-            //Custom Font
-            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
-            val fontName =
-                BaseFont.createFont(
-                    "assets/fonts/roboto_medium.ttf",
-                    BaseFont.IDENTITY_H,
-                    BaseFont.EMBEDDED
-                )
-
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
-
-
-            addImage(document)
-
-            //close
-
-            document.close()
-            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
-
-            printPDF()
-
-
-
-
-        } catch (e: Exception) {
-            Log.e("ERROR", "" + e.message)
-            Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
-
-        }
-    }
-
-    private fun createPDFFile10(path: String) {
-        if(File(path).exists())
-            File(path).delete()
-        val any = try {
-            val document = Document()
-            //Save
-            PdfWriter.getInstance(document, FileOutputStream(path))
-            //Open to Write
-            document.open()
-            //Settings
-            document.pageSize = PageSize.A4
-            document.addCreationDate()
-            document.addAuthor("AUTHOR_NAME")
-            document.addCreator("CREATOR_NAME")
-
-
-
-            //Font Settings
-            val colorAccent = BaseColor(0, 153, 204, 255)
-            val headingFontSize = 20.0f
-            val valueFontSize = 26.0f
-
-
-            //Custom Font
-            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
-            val fontName =
-                BaseFont.createFont(
-                    "assets/fonts/roboto_medium.ttf",
-                    BaseFont.IDENTITY_H,
-                    BaseFont.EMBEDDED
-                )
-
-            val titleStyle = Font(fontName, 36.0f, Font.NORMAL, BaseColor.BLACK)
-            addNewItem(document, "JPG DENEME", Element.ALIGN_CENTER, titleStyle)
-
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
 
             addImageFromGallery(document)
 
@@ -747,7 +806,190 @@ class MainFragment : Fragment() {
 
         } catch (e: Exception) {
             Log.e("ERROR", "" + e.message)
-            Toast.makeText(activity, e.message, Toast.LENGTH_LONG).show()
+
+        }
+    }
+
+    private fun createPDFFile9(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 12.0f
+            val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 12.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+
+
+            //Title
+
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Doktora Yeterlik Sınav Jürisi Öneri Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
+
+            //addLineSeperator(document)
+            addNewItem(document, "Fen Bilimleri Enstitüsü Müdürlüğüne,\nSAÜ LEOY 40(1) ve 42(1) uyarınca doktora yeterlilik sınavına girmek için gerekli koşulu sağlayan aşağıda bilgileri yer alan doktora programı öğrencisine ait doktora yeterlik sınav jüri önerileri SAÜ LEOY 42 amddesinin (6). bendi uyarınca aşağıda sunulmuştur.\nBilgilerinizi ve gereğini arz ederim.", Element.ALIGN_LEFT, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            addNewItemWithLeftAndRight(document, "Öğretim Üyesi Adı 1:", tempEditTextValue3 , leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Öğretim Üyesi Adı 2:", tempEditTextValue4 , leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Öğretim Üyesi Adı 3:", tempEditTextValue5 , leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Öğretim Üyesi Adı 4:", tempEditTextValue6 , leftAndRightStyle, leftAndRightStyle)
+            addLineSeperator(document)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
+            addBlankLineSeperator(document)
+            addNewItemWithLeftAndRight(document, "Yeterlik Lisanı:", tempEditTextValue, leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Dönem:", tempEditTextValue2, leftAndRightStyle, leftAndRightStyle)
+
+            addImageFromGallery(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
+
+    private fun createPDFFile10(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 18.0f
+            val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+
+
+            //Title
+
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Askerlik İşlemleri Başvuru Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
+
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() + " ," + schoolNumber.toString() + " numaralı öğrencinizim. Askerlik işlemlerimin yapılması için gereğini arz ederim."  , Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            addLineSeperator(document)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addNewItemWithLeftAndRight(document, "Gereken İşlem:", tempEditTextValue, leftAndRightStyle, leftAndRightStyle)
+
+            addImageFromGallery(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
 
         }
     }
@@ -837,34 +1079,35 @@ class MainFragment : Fragment() {
 
     }
 
-    @Throws(DocumentException::class , IOException::class)
-    private fun addImage(document: Document)
-    {
-        try {
-            val rectDoc = document.pageSize
-            val width = rectDoc.width
-            val height = rectDoc.height
-            val imageStartX = width - document.rightMargin() - 300f//Absolute Position X
-            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
-            System.gc()
-
-            val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
-            val bmp = BitmapFactory.decodeStream(ims)
-            val stream = ByteArrayOutputStream()
-            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
-            val byteArray: ByteArray = stream.toByteArray()
-
-            val img = Image.getInstance(byteArray) // img.scalePercent(50);
-            img.alignment = Image.TEXTWRAP
-            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
-            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
-            document.add(img)
-        } catch (e: Exception)
-        {
-            e.printStackTrace()
-            Log.e("JPG ERROR", e.message)
-        }
-    }
+//    USELESS FUNCTION
+//    @Throws(DocumentException::class , IOException::class)
+//    private fun addImage(document: Document)
+//    {
+//        try {
+//            val rectDoc = document.pageSize
+//            val width = rectDoc.width
+//            val height = rectDoc.height
+//            val imageStartX = width - document.rightMargin() - 300f//Absolute Position X
+//            val imageStartY = height - document.topMargin() - 500f//Absolute Position Y
+//            System.gc()
+//
+//            val ims: InputStream? = activity?.assets?.open("imageAssets/cat.jpg")//File Location
+//            val bmp = BitmapFactory.decodeStream(ims)
+//            val stream = ByteArrayOutputStream()
+//            bmp.compress(Bitmap.CompressFormat.JPEG, 100, stream)
+//            val byteArray: ByteArray = stream.toByteArray()
+//
+//            val img = Image.getInstance(byteArray) // img.scalePercent(50);
+//            img.alignment = Image.TEXTWRAP
+//            img.scaleAbsolute(200f, 200f) // ReAdjusting the JPG
+//            img.setAbsolutePosition(imageStartX, imageStartY) // Adding Image
+//            document.add(img)
+//        } catch (e: Exception)
+//        {
+//            e.printStackTrace()
+//            Log.e("JPG ERROR", e.message)
+//        }
+//    }
 
     @Throws(DocumentException::class , IOException::class)
     private fun addImageFromGallery(document: Document)
@@ -898,53 +1141,13 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun button6() {
 
+
+
+
+    private fun button1() {
         val alert = AlertDialog.Builder(activity)
-
-        val editText = EditText(activity)
-        //alert.setMessage("Sebep")
-        alert.setTitle("Tek Ders Sınavı için gereken ders adını giriniz.")
-        alert.setView(editText)
-        //val layout = R.layout.alert_view
-        //alert.setView(layout)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
-        alert.setPositiveButton("Onayla")
-        {
-                dialog, _ -> //What ever you want to do with the value
-            tempEditTextValue = editText.text.toString()
-            if(tempEditTextValue.isEmpty())
-            {
-                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
-                dialog.dismiss()
-            }
-            else
-            {
-
-                createPDFFile6(Common.getAppPath(this) + fileName)
-            }
-
-            //val something = etCourse1.text.toString()
-            //button6EditTextValue = etCourse1.text.toString()
-            //Log.d("editTextValue", "Value: $editTextValue")
-            //Calling the Actual Function
-
-        }
-        alert.setNegativeButton("İptal Et")
-        {
-            dialog, _ ->
-                dialog.dismiss()
-        }
-        alert.setCancelable(false)
-
-
-        alert.show()
-        
-    }
-
-    private fun button7() {
-        val alert = AlertDialog.Builder(activity)
-        val layout = R.layout.alert_view
+        val layout = R.layout.button1_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
         var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
@@ -957,8 +1160,261 @@ class MainFragment : Fragment() {
         alert.setPositiveButton("Onayla")
         {
                 dialog, _ -> //What ever you want to do with the value
-            tempEditTextValue = etCourse1?.text.toString() //editText.text.toString()
+            tempEditTextValue = etCourse1?.text.toString()
             tempEditTextValue2 = etCourse2?.text.toString()
+            if(tempEditTextValue.isEmpty() && tempEditTextValue2.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+
+    }
+
+    private fun button2() {
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button2_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            if(tempEditTextValue.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile2(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+
+    }
+
+    private fun button3() {
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button3_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            if(tempEditTextValue.isEmpty() && tempEditTextValue2.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile3(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+
+    }
+
+    private fun button4() {
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button4_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            if(tempEditTextValue.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile4(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+
+    }
+
+    private fun button5() {
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button5_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            tempEditTextValue3 = etCourse3?.text.toString()
+            if(tempEditTextValue.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile5(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+
+    }
+
+    private fun button6() {
+
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button6_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            tempEditTextValue3 = etCourse3?.text.toString()
+            if(tempEditTextValue.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile6(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+    }
+
+    private fun button7() {
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button7_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+
             if(tempEditTextValue.isEmpty())
             {
                 Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
@@ -983,5 +1439,154 @@ class MainFragment : Fragment() {
         alert.show()
 
     }
+
+    private fun button8() {
+
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button8_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            tempEditTextValue3 = etCourse3?.text.toString()
+
+            if(tempEditTextValue.isEmpty() &&
+                tempEditTextValue2.isEmpty() &&
+                tempEditTextValue3.isEmpty()
+            )
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile8(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+    }
+
+    private fun button9() {
+
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button9_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        var etCourse4 = customLayout?.findViewById<EditText>(R.id.etCourse4)
+        var etCourse5 = customLayout?.findViewById<EditText>(R.id.etCourse5)
+        var etCourse6 = customLayout?.findViewById<EditText>(R.id.etCourse6)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            tempEditTextValue3 = etCourse3?.text.toString()
+            tempEditTextValue4 = etCourse4?.text.toString()
+            tempEditTextValue5 = etCourse5?.text.toString()
+            tempEditTextValue6 = etCourse6?.text.toString()
+
+            if(tempEditTextValue.isEmpty() &&
+                tempEditTextValue2.isEmpty() &&
+                tempEditTextValue3.isEmpty() &&
+                tempEditTextValue4.isEmpty() &&
+                tempEditTextValue5.isEmpty() &&
+                tempEditTextValue6.isEmpty()
+            )
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile9(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+    }
+
+    private fun button10() {
+
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.button10_alert_dialog
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString()
+
+            if(tempEditTextValue.isEmpty()
+            )
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile10(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+
+        alert.setCancelable(false)
+
+
+        alert.show()
+    }
+
+
 
 }
