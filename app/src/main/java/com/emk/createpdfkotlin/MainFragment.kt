@@ -3,7 +3,6 @@ package com.emk.createpdfkotlin
 
 import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -16,7 +15,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -25,7 +23,6 @@ import com.itextpdf.text.pdf.BaseFont
 import com.itextpdf.text.pdf.PdfWriter
 import com.itextpdf.text.pdf.draw.LineSeparator
 import com.itextpdf.text.pdf.draw.VerticalPositionMark
-import kotlinx.android.synthetic.main.alert_view.*
 import kotlinx.android.synthetic.main.fragment_main.view.*
 import java.io.*
 import java.text.SimpleDateFormat
@@ -43,7 +40,6 @@ class MainFragment : Fragment() {
     private var tempEditTextValue4: String = ""
     private var tempEditTextValue5: String = ""
     private var tempEditTextValue6: String = ""
-    //private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
 
 
     override fun onCreateView(
@@ -53,8 +49,6 @@ class MainFragment : Fragment() {
     ): View? {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
-
-        //val editor = sharedPrefs?.edit()
 
         view.btn_create_pdf?.setOnClickListener{
             createPDFFile(Common.getAppPath(this) + fileName)
@@ -470,6 +464,96 @@ class MainFragment : Fragment() {
         }
     }
 
+    private fun createPDFFile7(path: String) {
+        if(File(path).exists())
+            File(path).delete()
+        try {
+            val document = Document()
+            //Save
+            PdfWriter.getInstance(document, FileOutputStream(path))
+            //Open to Write
+            document.open()
+            //Settings
+            document.pageSize = PageSize.A4
+            document.addCreationDate()
+            document.addAuthor("AUTHOR_NAME")
+            document.addCreator("CREATOR_NAME")
+
+
+
+            //Font Settings
+            val colorAccent = BaseColor(0, 153, 204, 255)
+            val headingFontSize = 18.0f
+            val valueFontSize = 26.0f
+            val rightAndLeftFontSize = 15.0f
+
+
+            //Custom Font
+            //Turkish Language support now live. BaseFont.IDENTITIY_H grants the Turkish Language Support
+            val fontName =
+                BaseFont.createFont(
+                    "assets/fonts/roboto_medium.ttf",
+                    BaseFont.IDENTITY_H,
+                    BaseFont.EMBEDDED
+                )
+
+            //Getting data from UserFragment using SharedPreferences
+            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+            val name = pref.getString("NAME", "DEFAULT_NAME")
+            val facility = pref.getString("FACILITY", "DEFAULT_FACILITY")
+            val branch = pref.getString("BRANCH", "DEFAULT_BRANCH")
+            val telNumber = pref.getString("TELNUMBER", "DEFAULT_TELNUMBER")
+            val tcNo = pref.getString("TCNUMBER", "DEFAULT_TCNO")
+            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+
+
+            //Title
+
+            val titleStyle = Font(fontName, 30.0f, Font.NORMAL, BaseColor.BLACK)
+            addNewItem(document, "Sakarya Üniversitesi Tek Ders Kabul Formu", Element.ALIGN_CENTER, titleStyle)
+            addLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            val headingStyle = Font(fontName, headingFontSize, Font.NORMAL, BaseColor.BLACK)
+            val valueStyle = Font(fontName, valueFontSize, Font.NORMAL, BaseColor.BLACK)
+            val leftAndRightStyle = Font(fontName, rightAndLeftFontSize, Font.NORMAL, BaseColor.BLACK)
+
+            //addLineSeperator(document)
+            addNewItem(document, facility.toString() + " ," + branch.toString() +"'nin " + schoolNumber.toString() + " numaralı öğrencisiyim. Belirtmiş olduğum tek ders sınavına kabulüm konusunda gerekeni saygılarımla arz ederim.", Element.ALIGN_CENTER, headingStyle)
+            addBlankLineSeperator(document)
+            addBlankLineSeperator(document)
+
+            addNewItemWithLeftAndRight(document, "Ders Adı:", tempEditTextValue , valueStyle, valueStyle)
+            addLineSeperator(document)
+
+            //ITEMS
+            addNewItemWithLeftAndRight(document, "Tarih:", currentDate.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Adı Soyadı:", name.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "TC Kimlik No:", tcNo.toString(), leftAndRightStyle, leftAndRightStyle)
+            addNewItemWithLeftAndRight(document, "Telefon No:", telNumber.toString(), leftAndRightStyle, leftAndRightStyle)
+
+            addImageFromGallery(document)
+
+            //close
+
+            document.close()
+            Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
+
+            printPDF()
+
+
+
+
+        } catch (e: Exception) {
+            Log.e("ERROR", "" + e.message)
+
+        }
+    }
+
+
+
 
     private fun createPDFFile8(path: String) {
         if(File(path).exists())
@@ -859,16 +943,16 @@ class MainFragment : Fragment() {
     }
 
     private fun button7() {
-
         val alert = AlertDialog.Builder(activity)
         val layout = R.layout.alert_view
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
         var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
         var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
-//        val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
-//        val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+        //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
         alert.setIcon(R.drawable.ic_warning_black_24dp)
+
 
         alert.setPositiveButton("Onayla")
         {
@@ -883,7 +967,7 @@ class MainFragment : Fragment() {
             else
             {
 
-                createPDFFile6(Common.getAppPath(this) + fileName)
+                createPDFFile7(Common.getAppPath(this) + fileName)
             }
 
         }
@@ -892,6 +976,7 @@ class MainFragment : Fragment() {
                 dialog, _ ->
             dialog.dismiss()
         }
+
         alert.setCancelable(false)
 
 

@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_marginTop="10dp"
     android:layout_marginLeft="5dp"
     android:layout_marginRight="5dp"
-    android:orientation="vertical"
     >
 
     <TextView
@@ -46,9 +46,45 @@
         android:layout_marginTop="10dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:hint="DUMMY"
+        android:hint="Ders Adı"
         android:background="@drawable/et_bg_border"
         />
+
+    <!--
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+
+        <Button
+            android:layout_marginBottom="10dp"
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:textColor="@color/colorWhite"
+            android:background="@drawable/et_button_background"
+            android:text="İptal"
+            />
+
+        <Button
+            android:layout_marginBottom="10dp"
+            android:id="@+id/btnConfirm"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="5dp"
+            android:background="@drawable/et_button_background"
+            android:textColor="@color/colorWhite"
+            android:text="Kaydet"
+            />
+
+    </LinearLayout>
+    -->
 
 
 
