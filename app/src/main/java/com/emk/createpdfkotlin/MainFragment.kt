@@ -3,6 +3,7 @@ package com.emk.createpdfkotlin
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -15,6 +16,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -31,11 +33,16 @@ import java.util.*
 
 
 class MainFragment : Fragment() {
-    val sdf = SimpleDateFormat("dd/MM/yyyy")
-    private val file_name: String = "test_pdf.pdf"
-    private val file_name_location: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
+    private val sdf = SimpleDateFormat("dd/MM/yyyy")
+    private val fileName: String = "test_pdf.pdf"
+    private val fileNameLocation: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
     private val currentDate = sdf.format(Date())
-    private var button6EditTextValue: String = ""
+    private var tempEditTextValue: String = ""
+    private var tempEditTextValue2: String = ""
+    private var tempEditTextValue3: String = ""
+    private var tempEditTextValue4: String = ""
+    private var tempEditTextValue5: String = ""
+    private var tempEditTextValue6: String = ""
     //private val sharedPrefs = activity?.getPreferences(Context.MODE_PRIVATE)
 
 
@@ -50,16 +57,16 @@ class MainFragment : Fragment() {
         //val editor = sharedPrefs?.edit()
 
         view.btn_create_pdf?.setOnClickListener{
-            createPDFFile(Common.getAppPath(this) + file_name)
+            createPDFFile(Common.getAppPath(this) + fileName)
 
         }
         view.btn_create_pdf2.setOnClickListener{
-            createPDFFile2(Common.getAppPath(this) + file_name)
+            createPDFFile2(Common.getAppPath(this) + fileName)
 
         }
         view.btn_create_pdf3.setOnClickListener{
 
-            createPDFFile3(Common.getAppPath(this) + file_name)
+            createPDFFile3(Common.getAppPath(this) + fileName)
 
         }
 
@@ -80,22 +87,22 @@ class MainFragment : Fragment() {
         }
         view.btn_create_pdf7.setOnClickListener{
 
-            Toast.makeText(activity,"Under Construction",Toast.LENGTH_SHORT).show()
+            button7()
 
         }
 
         view.btn_create_pdf8.setOnClickListener{
 
-            createPDFFile8(Common.getAppPath(this) + file_name)
+            createPDFFile8(Common.getAppPath(this) + fileName)
         }
         view.btn_create_pdf9.setOnClickListener{
 
-            createPDFFile9(Common.getAppPath(this) + file_name)
+            createPDFFile9(Common.getAppPath(this) + fileName)
         }
 
         view.btn_create_pdf10?.setOnClickListener{
 
-            createPDFFile10(Common.getAppPath(this) + file_name)
+            createPDFFile10(Common.getAppPath(this) + fileName)
 
         }
 
@@ -436,7 +443,7 @@ class MainFragment : Fragment() {
             addBlankLineSeperator(document)
             addBlankLineSeperator(document)
 
-            addNewItemWithLeftAndRight(document, "Ders Adı:", button6EditTextValue , titleStyle, valueStyle)
+            addNewItemWithLeftAndRight(document, "Ders Adı:", tempEditTextValue , titleStyle, valueStyle)
             addLineSeperator(document)
 
             //ITEMS
@@ -667,7 +674,7 @@ class MainFragment : Fragment() {
             val eMailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:MAILADRESS")).apply {
                 putExtra(Intent.EXTRA_SUBJECT, "DENEME")
                 putExtra(Intent.EXTRA_TEXT, "DENEME")
-                putExtra(Intent.EXTRA_STREAM, file_name_location)
+                putExtra(Intent.EXTRA_STREAM, fileNameLocation)
             }
             eMailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             eMailIntent.type = "text/plain"
@@ -684,7 +691,7 @@ class MainFragment : Fragment() {
     private fun printPDF() {
         val printManager = activity?.getSystemService(Context.PRINT_SERVICE) as PrintManager
         try {
-            val printAdapter = activity?.let { PdfDocumentAdapter(it,Common.getAppPath(this)+file_name) }
+            val printAdapter = activity?.let { PdfDocumentAdapter(it,Common.getAppPath(this)+fileName) }
             if (printAdapter != null) {
                 printManager.print("Document",printAdapter, PrintAttributes.Builder().build())
             }
@@ -812,7 +819,7 @@ class MainFragment : Fragment() {
         val alert = AlertDialog.Builder(activity)
 
         val editText = EditText(activity)
-        alert.setMessage("Sebep")
+        //alert.setMessage("Sebep")
         alert.setTitle("Tek Ders Sınavı için gereken ders adını giriniz.")
         alert.setView(editText)
         //val layout = R.layout.alert_view
@@ -821,13 +828,22 @@ class MainFragment : Fragment() {
         alert.setPositiveButton("Onayla")
         {
                 dialog, _ -> //What ever you want to do with the value
-            button6EditTextValue = editText.text.toString()
+            tempEditTextValue = editText.text.toString()
+            if(tempEditTextValue.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile6(Common.getAppPath(this) + fileName)
+            }
 
             //val something = etCourse1.text.toString()
             //button6EditTextValue = etCourse1.text.toString()
             //Log.d("editTextValue", "Value: $editTextValue")
             //Calling the Actual Function
-            createPDFFile6(Common.getAppPath(this) + file_name)
 
         }
         alert.setNegativeButton("İptal Et")
@@ -840,6 +856,47 @@ class MainFragment : Fragment() {
 
         alert.show()
         
+    }
+
+    private fun button7() {
+
+        val alert = AlertDialog.Builder(activity)
+        val layout = R.layout.alert_view
+        val customLayout: View = layoutInflater.inflate(layout, null)
+        alert.setView(customLayout)
+        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+//        val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
+//        val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
+        alert.setIcon(R.drawable.ic_warning_black_24dp)
+
+        alert.setPositiveButton("Onayla")
+        {
+                dialog, _ -> //What ever you want to do with the value
+            tempEditTextValue = etCourse1?.text.toString() //editText.text.toString()
+            tempEditTextValue2 = etCourse2?.text.toString()
+            if(tempEditTextValue.isEmpty())
+            {
+                Toast.makeText(activity,"Alan boş bırakılamaz.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+            else
+            {
+
+                createPDFFile6(Common.getAppPath(this) + fileName)
+            }
+
+        }
+        alert.setNegativeButton("İptal Et")
+        {
+                dialog, _ ->
+            dialog.dismiss()
+        }
+        alert.setCancelable(false)
+
+
+        alert.show()
+
     }
 
 }
