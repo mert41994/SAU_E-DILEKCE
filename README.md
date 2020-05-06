@@ -12,4 +12,4 @@ HistoryFragment.kt : Collects Created PDF's and shows that data on ListView. -> 
 
 SignatureFragment.kt : Gets User Signature with a SignaturePad -> Operational
 
-MainFragment : Creates PDF Files. -> Button 1 Operational, Button 2 Operational with SharedPreferences,Button 3 - Button 8 isn't operational, Button 9 is gets JPG file from assets folder, Button 10 gets JPG file from Gallery
+MainFragment : Creates PDF Files.
