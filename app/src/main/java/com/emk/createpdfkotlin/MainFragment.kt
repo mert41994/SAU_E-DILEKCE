@@ -4,6 +4,7 @@ package com.emk.createpdfkotlin
 import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
@@ -50,69 +51,59 @@ class MainFragment : Fragment() {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
-        view.btn_create_pdf?.setOnClickListener{
-            button1()
+            view.btn_create_pdf?.setOnClickListener {
+                button1()
 
-        }
-        view.btn_create_pdf2.setOnClickListener{
-            button2()
+            }
+            view.btn_create_pdf2.setOnClickListener {
+                button2()
 
-        }
-        view.btn_create_pdf3.setOnClickListener{
-            button3()
+            }
+            view.btn_create_pdf3.setOnClickListener {
+                button3()
 
-        }
+            }
 
-        view.btn_create_pdf4.setOnClickListener{
+            view.btn_create_pdf4.setOnClickListener {
 
-            button4()
-        }
-        view.btn_create_pdf5.setOnClickListener{
+                button4()
+            }
+            view.btn_create_pdf5.setOnClickListener {
 
-            button5()
+                button5()
 
-        }
+            }
 
-        view.btn_create_pdf6.setOnClickListener{
+            view.btn_create_pdf6.setOnClickListener {
 
-            button6()
+                button6()
 
-        }
-        view.btn_create_pdf7.setOnClickListener{
+            }
+            view.btn_create_pdf7.setOnClickListener {
 
-            button7()
+                button7()
 
-        }
+            }
 
-        view.btn_create_pdf8.setOnClickListener{
-            button8()
+            view.btn_create_pdf8.setOnClickListener {
+                button8()
 
-        }
-        view.btn_create_pdf9.setOnClickListener{
+            }
+            view.btn_create_pdf9.setOnClickListener {
 
-            button9()
-        }
+                button9()
+            }
 
-        view.btn_create_pdf10?.setOnClickListener{
+            view.btn_create_pdf10?.setOnClickListener {
 
-            button10()
+                button10()
 
-        }
+            }
 
         // Inflate the layout for this fragment
         return view
     }
 
-//    fun getSharedPrefsData()
-//    {
-//
-//        val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
-//        val name = pref.getString("NAME", "DEFAULT_VALUE")
-//        val facility = pref.getString("FACILITY", "DEFAULT_VALUE")
-//        val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
-//        val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
-//        val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
-//    }
 
     private fun createPDFFile(path: String) {
         if(File(path).exists())
