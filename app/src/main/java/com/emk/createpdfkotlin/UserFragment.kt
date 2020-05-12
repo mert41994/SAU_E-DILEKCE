@@ -117,12 +117,12 @@ class UserFragment : Fragment() {
                         Toast.makeText(activity,
                             "Bilgiler başarıyla kaydedildi.",
                         Toast.LENGTH_LONG ).show()
-                    view.etUserName.setText(name)
-                    view.etBranch.setText(branch)
-                    view.etFacility.setText(facility)
-                    view.etTcNumber.setText(tcNo)
-                    view.etTelNumber.setText(telNumber)
-                    view.etSchoolNumber.setText(schoolNumber)
+                            view.etUserName.setText(name)
+                            view.etBranch.setText(branch)
+                            view.etFacility.setText(facility)
+                            view.etTcNumber.setText(tcNo)
+                            view.etTelNumber.setText(telNumber)
+                            view.etSchoolNumber.setText(schoolNumber)
                 }
 
 

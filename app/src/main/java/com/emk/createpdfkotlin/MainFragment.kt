@@ -42,7 +42,6 @@ class MainFragment : Fragment() {
     private var tempEditTextValue5: String = "-"
     private var tempEditTextValue6: String = "-"
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -53,7 +52,7 @@ class MainFragment : Fragment() {
 
             firstTimeAlert()
 
-            view.btn_create_pdf?.setOnClickListener {
+            view.btn_create_pdf.setOnClickListener {
                 button1()
 
             }
@@ -980,7 +979,6 @@ class MainFragment : Fragment() {
 
 
 
-
         } catch (e: Exception) {
             Log.e("ERROR", "" + e.message)
 
@@ -989,11 +987,12 @@ class MainFragment : Fragment() {
 
     private fun sendPDF() {
         try {
+            val fileLocation = Common.getAppPath(this) + fileName
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
             val eMailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:MAILADRESS")).apply {
                 putExtra(Intent.EXTRA_SUBJECT, "DENEME")
                 putExtra(Intent.EXTRA_TEXT, "DENEME")
-                putExtra(Intent.EXTRA_STREAM, fileNameLocation)
+                putExtra(Intent.EXTRA_STREAM, fileLocation)
             }
             eMailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             eMailIntent.type = "text/plain"
@@ -1588,7 +1587,7 @@ class MainFragment : Fragment() {
         val fileLocation = "/storage/emulated/0/Pictures/UserSignature/Signature.jpg"
         val file = File(fileLocation)
 
-        if (name == "DEFAULT_NAME" && file.exists()) {
+        if (name == "DEFAULT_NAME" && !file.exists()) {
 
 
             val alert = AlertDialog.Builder(activity)

@@ -110,9 +110,6 @@ class MainActivity : AppCompatActivity() {
 
         nav_menu.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
 
-        //getPreferences Settings
-        //val pref = getPreferences(Context.MODE_PRIVATE)
-
     }
 
     private fun createFragmentUser()

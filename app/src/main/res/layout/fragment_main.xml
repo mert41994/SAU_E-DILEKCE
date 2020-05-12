@@ -18,7 +18,7 @@
 
         <TextView
             android:id="@+id/textGrid"
-            android:text="PDF OLUŞTURUCU"
+            android:text="DİLEKÇE TÜRÜNÜ SEÇİNİZ"
             android:textSize="34sp"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
@@ -74,7 +74,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Not İtiraz"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -120,7 +120,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Kayıt Dondurma"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -166,7 +166,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Mezun Olmama"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -210,9 +210,10 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Öğr Türü D."
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -258,7 +259,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Ders Sildirme"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -303,7 +304,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Ders Saydırma"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -348,7 +349,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Tek Ders"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -393,7 +394,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Çakışan Ders"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -439,7 +440,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Doktora Yeterlik"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
@@ -483,9 +484,10 @@
                     android:layout_height="wrap_content"/>
 
                 <TextView
+                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="PDF Oluştur!"
+                    android:text="Askerlik"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
                     android:textSize="18sp"
