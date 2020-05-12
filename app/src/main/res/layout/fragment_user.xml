@@ -151,7 +151,7 @@
             android:text="Kaydet"
             />
 
-        <Button
+        <!--<Button
             android:id="@+id/btnCheckInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -162,7 +162,7 @@
             android:background="@drawable/et_button_background"
             android:textColor="@color/colorWhite"
             android:text="Bilgileri Göster"
-            />
+            />-->
 
 
 

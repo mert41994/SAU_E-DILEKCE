@@ -51,6 +51,8 @@ class MainFragment : Fragment() {
         //Setting the main fragment layout for this
         val view: View = inflater.inflate(R.layout.fragment_main, container, false)
 
+            firstTimeAlert()
+
             view.btn_create_pdf?.setOnClickListener {
                 button1()
 
@@ -1576,6 +1578,38 @@ class MainFragment : Fragment() {
 
 
         alert.show()
+    }
+
+    private fun firstTimeAlert()
+    {
+        //Checking the First Run
+        val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+        val name = pref.getString("NAME", "DEFAULT_NAME")
+        val fileLocation = "/storage/emulated/0/Pictures/UserSignature/Signature.jpg"
+        val file = File(fileLocation)
+
+        if (name == "DEFAULT_NAME" && file.exists()) {
+
+
+            val alert = AlertDialog.Builder(activity)
+            val layout = R.layout.firsttime_alert_dialog
+            val customLayout: View = layoutInflater.inflate(layout, null)
+            alert.setView(customLayout)
+                alert.setPositiveButton("Onayla")
+                { dialog, _ -> //What ever you want to do with the value
+                    dialog.dismiss()
+
+                }
+                alert.setCancelable(false)
+
+
+                alert.show()
+        }
+
+        else
+        {
+
+        }
     }
 
 

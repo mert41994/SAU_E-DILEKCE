@@ -115,7 +115,7 @@ class UserFragment : Fragment() {
                 else
                 {
                         Toast.makeText(activity,
-                            "Bilgiler başarıyla kaydedildi.\nBilgileri göster tuşu ile kontrol edebilirsiniz.",
+                            "Bilgiler başarıyla kaydedildi.",
                         Toast.LENGTH_LONG ).show()
                     view.etUserName.setText(name)
                     view.etBranch.setText(branch)
@@ -167,54 +167,54 @@ class UserFragment : Fragment() {
 
 
         //CheckInfo Button Functionality
-        view.btnCheckInfo.setOnClickListener{
-
-
-            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
-
-            val name = pref.getString("NAME", "DEFAULT_VALUE")
-            val facility = pref.getString("FACILITY", "DEFAULT_VALUE")
-            val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
-            val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
-            val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
-            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
-
-                    if(
-                name.toString() == "DEFAULT_VALUE" &&
-                schoolNumber.toString() == "DEFAULT_VALUE" &&
-                facility.toString() == "DEFAULT_VALUE" &&
-                branch.toString() == "DEFAULT_VALUE" &&
-                telNumber.toString() == "DEFAULT_VALUE" &&
-                tcNo.toString() == "DEFAULT_VALUE")
-                    {
-                        Toast.makeText(activity,
-                            "Herhangi bir bilgi girilmemiştir. Lütfen bilgilerinizi tekrar giriniz.",
-                            Toast.LENGTH_SHORT).show()
-                    }
-
-                if(name.toString() == "" ||
-                    facility.toString() == "" ||
-                    schoolNumber.toString() == "" ||
-                    branch.toString() == "" ||
-                    telNumber.toString() == "" ||
-                    tcNo.toString() == "")
-                {
-                    Toast.makeText(activity,
-                        "Eksik bilgi bulunmaktadır. Lütfen bilgilerinizi tekrar giriniz.",
-                        Toast.LENGTH_SHORT).show()
-                }
-                else
-                {
-                    Toast.makeText(activity,
-                        "İsim : ${pref.getString("NAME","DEFAULT_VALUE")}\n" +
-                                "Fakülte : ${pref.getString("FACILITY","DEFAULT_VALUE")}\n" +
-                                "Branş : ${pref.getString("BRANCH","DEFAULT_VALUE")}\n"+
-                                "Telefon No : ${pref.getString("TELNUMBER","DEFAULT_VALUE")}\n"+
-                                "TC Kimlik No : ${pref.getString("TCNUMBER","DEFAULT_VALUE")}\n",
-                        Toast.LENGTH_LONG ).show()
-                }
-
-            }
+//        view.btnCheckInfo.setOnClickListener{
+//
+//
+//            val pref = activity!!.getPreferences(Context.MODE_PRIVATE)
+//
+//            val name = pref.getString("NAME", "DEFAULT_VALUE")
+//            val facility = pref.getString("FACILITY", "DEFAULT_VALUE")
+//            val branch = pref.getString("BRANCH", "DEFAULT_VALUE")
+//            val telNumber = pref.getString("TELNUMBER", "DEFAULT_VALUE")
+//            val tcNo = pref.getString("TCNUMBER", "DEFAULT_VALUE")
+//            val schoolNumber = pref.getString("SCHOOLNUMBER", "DEFAULT_VALUE")
+//
+//                    if(
+//                name.toString() == "DEFAULT_VALUE" &&
+//                schoolNumber.toString() == "DEFAULT_VALUE" &&
+//                facility.toString() == "DEFAULT_VALUE" &&
+//                branch.toString() == "DEFAULT_VALUE" &&
+//                telNumber.toString() == "DEFAULT_VALUE" &&
+//                tcNo.toString() == "DEFAULT_VALUE")
+//                    {
+//                        Toast.makeText(activity,
+//                            "Herhangi bir bilgi girilmemiştir. Lütfen bilgilerinizi tekrar giriniz.",
+//                            Toast.LENGTH_SHORT).show()
+//                    }
+//
+//                if(name.toString() == "" ||
+//                    facility.toString() == "" ||
+//                    schoolNumber.toString() == "" ||
+//                    branch.toString() == "" ||
+//                    telNumber.toString() == "" ||
+//                    tcNo.toString() == "")
+//                {
+//                    Toast.makeText(activity,
+//                        "Eksik bilgi bulunmaktadır. Lütfen bilgilerinizi tekrar giriniz.",
+//                        Toast.LENGTH_SHORT).show()
+//                }
+//                else
+//                {
+//                    Toast.makeText(activity,
+//                        "İsim : ${pref.getString("NAME","DEFAULT_VALUE")}\n" +
+//                                "Fakülte : ${pref.getString("FACILITY","DEFAULT_VALUE")}\n" +
+//                                "Branş : ${pref.getString("BRANCH","DEFAULT_VALUE")}\n"+
+//                                "Telefon No : ${pref.getString("TELNUMBER","DEFAULT_VALUE")}\n"+
+//                                "TC Kimlik No : ${pref.getString("TCNUMBER","DEFAULT_VALUE")}\n",
+//                        Toast.LENGTH_LONG ).show()
+//                }
+//
+//            }
 
 
         return view
