@@ -13,7 +13,7 @@
     <TextView
         android:id="@+id/textGrid"
         android:text="Ders Sildirme"
-        android:textSize="34sp"
+        android:textSize="30sp"
         android:layout_gravity="center"
         android:textColor="@color/colorPrimary"
         android:layout_centerInParent="true"

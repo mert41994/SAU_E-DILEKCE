@@ -19,7 +19,7 @@
         <TextView
             android:id="@+id/textGrid"
             android:text="DİLEKÇE TÜRÜNÜ SEÇİNİZ"
-            android:textSize="34sp"
+            android:textSize="30sp"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-condensed-medium"
@@ -27,7 +27,6 @@
             android:layout_height="wrap_content" />
 
     </RelativeLayout>
-
 
     <!--CardView-->
     <GridLayout
@@ -59,17 +58,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -77,7 +75,7 @@
                     android:text="Not İtiraz"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -105,17 +103,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -123,7 +120,7 @@
                     android:text="Kayıt Dondurma"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -151,17 +148,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -169,7 +165,7 @@
                     android:text="Mezun Olmama"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -197,26 +193,25 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_gravity="center"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Öğr Türü D."
+                    android:text="Öğr Türü Değişikliği"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -244,17 +239,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -262,7 +256,7 @@
                     android:text="Ders Sildirme"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -289,17 +283,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -307,7 +300,7 @@
                     android:text="Ders Saydırma"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -334,17 +327,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -352,7 +344,7 @@
                     android:text="Tek Ders"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -379,17 +371,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -397,7 +388,7 @@
                     android:text="Çakışan Ders"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -425,17 +416,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -443,7 +433,7 @@
                     android:text="Doktora Yeterlik"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 
@@ -471,17 +461,16 @@
 
             <LinearLayout
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_margin="16dp"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 >
 
                 <ImageView
-                    android:src="@drawable/pdf32"
+                    android:src="@drawable/pdf"
                     android:layout_gravity="center_horizontal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"/>
 
                 <TextView
                     android:layout_gravity="center"
@@ -490,7 +479,7 @@
                     android:text="Askerlik"
                     android:textAlignment="center"
                     android:textColor="@android:color/black"
-                    android:textSize="18sp"
+                    android:textSize="15sp"
                     android:textStyle="bold"
                     />
 

@@ -18,7 +18,7 @@
 
         <TextView
             android:text="GEÇMİŞ"
-            android:textSize="34sp"
+            android:textSize="30sp"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-condensed-medium"
@@ -40,15 +40,14 @@
             android:id="@+id/history_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
             android:scrollbarAlwaysDrawHorizontalTrack="true"
             android:smoothScrollbar="true"
             android:fastScrollStyle="@color/colorPrimaryDark"
             android:divider="@color/colorAccent"
             android:dividerHeight="0.1dp"
             android:footerDividersEnabled="true"
-            android:headerDividersEnabled="true"/>
+            android:headerDividersEnabled="true"
+            />
 
 
 

@@ -12,6 +12,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/bg">
 
+
     <RelativeLayout
         android:layout_weight="3"
         android:layout_width="match_parent"
@@ -20,7 +21,7 @@
         <TextView
             android:id="@+id/textGrid"
             android:text="KULLANICI GİRİŞİ"
-            android:textSize="34sp"
+            android:textSize="30sp"
             android:layout_centerInParent="true"
             android:textColor="@android:color/white"
             android:fontFamily="sans-serif-condensed-medium"
@@ -163,7 +164,6 @@
             android:textColor="@color/colorWhite"
             android:text="Bilgileri Göster"
             />-->
-
 
 
 
