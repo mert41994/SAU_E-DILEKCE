@@ -21,6 +21,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.itextpdf.text.*
 import com.itextpdf.text.pdf.BaseFont
+import com.itextpdf.text.pdf.PdfStamper
 import com.itextpdf.text.pdf.PdfWriter
 import com.itextpdf.text.pdf.draw.LineSeparator
 import com.itextpdf.text.pdf.draw.VerticalPositionMark
@@ -32,7 +33,8 @@ import java.util.*
 
 class MainFragment : Fragment() {
     private val sdf = SimpleDateFormat("dd/MM/yyyy")
-    private val fileName: String = "test_pdf.pdf"
+    private val fileNameDate: String = SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss").toString()
+    private val fileName: String = fileNameDate
     private val fileNameLocation: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
     private val currentDate = sdf.format(Date())
     private var tempEditTextValue: String = "-"
@@ -177,7 +179,6 @@ class MainFragment : Fragment() {
             addImageFromGallery(document)
 
             //close
-
             document.close()
             Toast.makeText(activity, "BAŞARILI!", Toast.LENGTH_LONG).show()
 
@@ -985,9 +986,16 @@ class MainFragment : Fragment() {
         }
     }
 
+    @Throws(IOException::class, DocumentException::class)
+    private fun savePDF()
+    {
+
+    }
+
     private fun sendPDF() {
         try {
             val fileLocation = Common.getAppPath(this) + fileName
+            var uri = Uri.fromFile(File(activity?.filesDir, fileName))
             Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
             val eMailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:MAILADRESS")).apply {
                 putExtra(Intent.EXTRA_SUBJECT, "DENEME")
@@ -1142,11 +1150,10 @@ class MainFragment : Fragment() {
         val layout = R.layout.button1_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1184,11 +1191,10 @@ class MainFragment : Fragment() {
         val layout = R.layout.button2_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1226,11 +1232,10 @@ class MainFragment : Fragment() {
         val layout = R.layout.button3_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1268,10 +1273,9 @@ class MainFragment : Fragment() {
         val layout = R.layout.button4_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1308,12 +1312,11 @@ class MainFragment : Fragment() {
         val layout = R.layout.button5_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
-        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
+        val etCourse3 = customLayout.findViewById<EditText>(R.id.etCourse3)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1353,12 +1356,11 @@ class MainFragment : Fragment() {
         val layout = R.layout.button6_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
-        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
+        val etCourse3 = customLayout.findViewById<EditText>(R.id.etCourse3)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1396,10 +1398,9 @@ class MainFragment : Fragment() {
         val layout = R.layout.button7_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1438,12 +1439,11 @@ class MainFragment : Fragment() {
         val layout = R.layout.button8_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
-        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
+        val etCourse3 = customLayout.findViewById<EditText>(R.id.etCourse3)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1486,15 +1486,14 @@ class MainFragment : Fragment() {
         val layout = R.layout.button9_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
-        var etCourse2 = customLayout?.findViewById<EditText>(R.id.etCourse2)
-        var etCourse3 = customLayout?.findViewById<EditText>(R.id.etCourse3)
-        var etCourse4 = customLayout?.findViewById<EditText>(R.id.etCourse4)
-        var etCourse5 = customLayout?.findViewById<EditText>(R.id.etCourse5)
-        var etCourse6 = customLayout?.findViewById<EditText>(R.id.etCourse6)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
+        val etCourse2 = customLayout.findViewById<EditText>(R.id.etCourse2)
+        val etCourse3 = customLayout.findViewById<EditText>(R.id.etCourse3)
+        val etCourse4 = customLayout.findViewById<EditText>(R.id.etCourse4)
+        val etCourse5 = customLayout.findViewById<EditText>(R.id.etCourse5)
+        val etCourse6 = customLayout.findViewById<EditText>(R.id.etCourse6)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
 
 
         alert.setPositiveButton("Onayla")
@@ -1543,11 +1542,9 @@ class MainFragment : Fragment() {
         val layout = R.layout.button10_alert_dialog
         val customLayout: View = layoutInflater.inflate(layout, null)
         alert.setView(customLayout)
-        var etCourse1 = customLayout?.findViewById<EditText>(R.id.etCourse1)
+        val etCourse1 = customLayout.findViewById<EditText>(R.id.etCourse1)
         //val btnCancel = customLayout?.findViewById<Button>(R.id.btnCancel)
         //val btnConfirm = customLayout?.findViewById<Button>(R.id.btnConfirm)
-        alert.setIcon(R.drawable.ic_warning_black_24dp)
-
 
         alert.setPositiveButton("Onayla")
         {
