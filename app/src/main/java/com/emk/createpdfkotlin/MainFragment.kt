@@ -35,7 +35,6 @@ class MainFragment : Fragment() {
     private val sdf = SimpleDateFormat("dd/MM/yyyy")
     private val fileNameDate: String = SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss").toString()
     private val fileName: String = fileNameDate
-    private var fileNameLocation: String = ""
     private val currentDate = sdf.format(Date())
     private var tempEditTextValue: String = "-"
     private var tempEditTextValue2: String = "-"
@@ -904,6 +903,7 @@ class MainFragment : Fragment() {
             val document = Document()
             //Save
             PdfWriter.getInstance(document, FileOutputStream(path))
+            Log.d("Path", "value:${FileOutputStream(path)}")
             //Open to Write
             document.open()
             //Settings
