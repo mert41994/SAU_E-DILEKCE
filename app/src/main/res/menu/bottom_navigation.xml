@@ -4,22 +4,26 @@
     <item
         android:id="@+id/nav_home"
         android:icon="@drawable/ic_home_black_24dp"
-        android:title="Ana Sayfa"/>
+        android:fontFamily="@font/cabin_regular"
+        android:title="@string/ana_sayfa"/>
 
     <item
         android:id="@+id/nav_user"
+        android:fontFamily="@font/cabin_regular"
         android:icon="@drawable/ic_person_black_24dp"
-        android:title="Kullanıcı"/>
+        android:title="@string/kullanici"/>
 
     <item
         android:id="@+id/nav_signature"
+        android:fontFamily="@font/cabin_regular"
         android:icon="@drawable/ic_create_black_24dp"
-        android:title="İmza"/>
+        android:title="@string/imza"/>
 
-    <item
+    <!--<item
         android:id="@+id/nav_history"
+        android:fontFamily="@font/cabin_regular"
         android:icon="@drawable/ic_history_black_24dp"
-        android:title="Geçmiş" />
+        android:title="Geçmiş" />-->
 
 
 

@@ -27,11 +27,11 @@
             android:id="@+id/textGrid"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:fontFamily="sans-serif-condensed-medium"
+            android:fontFamily="@font/cabin_medium"
             android:gravity="center"
             android:text="Hoşgeldiniz!"
             android:textColor="@android:color/black"
-            android:textSize="50sp"
+            android:textSize="40sp"
             />
 
             <LinearLayout
@@ -49,11 +49,11 @@
                     android:id="@+id/textGrid5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
+                    android:fontFamily="@font/cabin_regular"
                     android:gravity="center"
                     android:text="Programı ilk defa kullandığınızı ya da bilgilerinizde eksiklik olduğunu tespit ettik. Daha verimli kullanmanız için rehberimizi takip edebilirsiniz."
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>
@@ -78,11 +78,11 @@
                     android:id="@+id/textGrid2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
+                    android:fontFamily="@font/cabin_regular"
                     android:gravity="center"
                     android:text="Kullanıcı sekmesini kullanarak bilgilerinizi sisteme tanımlayabilirsiniz."
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>
@@ -107,11 +107,11 @@
                     android:id="@+id/textGrid3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
+                    android:fontFamily="@font/cabin_regular"
                     android:gravity="center"
                     android:text="İmza sekmesini kullanarak imzanızı sisteme tanımlayabilirsiniz."
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>
@@ -136,11 +136,11 @@
                     android:id="@+id/textGrid4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="sans-serif-condensed-light"
+                    android:fontFamily="@font/cabin_regular"
                     android:gravity="center"
                     android:text="Kayıtları tamamladıktan sonra menüleri kullanarak dökümanlarınızı oluşturabilirsiniz."
                     android:textColor="@android:color/black"
-                    android:textSize="20sp"
+                    android:textSize="15sp"
                     />
 
             </LinearLayout>

@@ -35,7 +35,7 @@ class MainFragment : Fragment() {
     private val sdf = SimpleDateFormat("dd/MM/yyyy")
     private val fileNameDate: String = SimpleDateFormat("yyyy.MM.dd'_'HH:mm:ss").toString()
     private val fileName: String = fileNameDate
-    private val fileNameLocation: String = "/storage/emulated/0/CreatePDFKotlin/test_pdf.pdf"
+    private var fileNameLocation: String = ""
     private val currentDate = sdf.format(Date())
     private var tempEditTextValue: String = "-"
     private var tempEditTextValue2: String = "-"
@@ -991,26 +991,24 @@ class MainFragment : Fragment() {
     {
 
     }
-
-    private fun sendPDF() {
-        try {
-            val fileLocation = Common.getAppPath(this) + fileName
-            var uri = Uri.fromFile(File(activity?.filesDir, fileName))
-            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS)
-            val eMailIntent = Intent(Intent.ACTION_SEND, Uri.parse("mailto:MAILADRESS")).apply {
-                putExtra(Intent.EXTRA_SUBJECT, "DENEME")
-                putExtra(Intent.EXTRA_TEXT, "DENEME")
-                putExtra(Intent.EXTRA_STREAM, fileLocation)
-            }
-            eMailIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-            eMailIntent.type = "text/plain"
-            startActivity(eMailIntent)
-        }
-        catch (e:Exception)
+    private fun sendPDF()
+    {
+        try
         {
-            Log.e("PRINTING ERROR", e.message)
-        }
+            val fileLocation = Common.getAppPath(this) + fileName
+            val intent = Intent(Intent.ACTION_SENDTO)
+            intent.type = "text/plain"
+            intent.putExtra(Intent.EXTRA_SUBJECT, "deneme_subject")
+            intent.putExtra(Intent.EXTRA_TEXT, "deneme_text")
+            intent.putExtra(Intent.EXTRA_STREAM, Uri.parse("file://$fileLocation"))
+            intent.data = Uri.parse("mailto:")
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            activity?.startActivity(intent)
 
+        }catch (e:Exception)
+        {
+            Log.e("SENDING ERROR", e.message)
+        }
 
     }
 
@@ -1561,6 +1559,7 @@ class MainFragment : Fragment() {
             {
 
                 createPDFFile10(Common.getAppPath(this) + fileName)
+
             }
 
         }
@@ -1584,7 +1583,7 @@ class MainFragment : Fragment() {
         val fileLocation = "/storage/emulated/0/Pictures/UserSignature/Signature.jpg"
         val file = File(fileLocation)
 
-        if (name == "DEFAULT_NAME" && !file.exists()) {
+        if (name == "DEFAULT_NAME" || !file.exists()) {
 
 
             val alert = AlertDialog.Builder(activity)

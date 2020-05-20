@@ -33,12 +33,12 @@ class MainActivity : AppCompatActivity() {
                 //Toast.makeText(this,"User",Toast.LENGTH_SHORT).show()
                 return@OnNavigationItemSelectedListener true
             }
-            R.id.nav_history -> {
-                createFragmentHistory()
-                //Toast.makeText(this,"History",Toast.LENGTH_SHORT).show()
-
-                return@OnNavigationItemSelectedListener true
-            }
+//            R.id.nav_history -> {
+//                createFragmentHistory()
+//                //Toast.makeText(this,"History",Toast.LENGTH_SHORT).show()
+//
+//                return@OnNavigationItemSelectedListener true
+//            }
             R.id.nav_signature ->{
                 createFragmentSignature()
                 //Toast.makeText(this,"Signature",Toast.LENGTH_LONG).show()

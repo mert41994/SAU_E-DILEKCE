@@ -8,4 +8,7 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="ana_sayfa">Ana Sayfa</string>
+    <string name="kullanici">Kullanıcı</string>
+    <string name="imza">İmza</string>
 </resources>
