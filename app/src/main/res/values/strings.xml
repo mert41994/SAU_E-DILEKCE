@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CreatePDFKotlin</string>
+    <string name="app_name">Saü E-Dilekçe</string>
     <string name="title_fragment_history">HistoryFragment</string>
     <string name="title_fragment_user">UserFragment</string>
     <string name="title_home">Home</string>
