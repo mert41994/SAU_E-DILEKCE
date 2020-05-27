@@ -47,7 +47,7 @@
         android:layout_width="match_parent"
         android:background="?android:attr/windowBackground"
         android:fontFamily="@font/cabin_medium"
-        android:theme="@style/AppTheme"
+        android:theme="@style/BottomNavigationTheme"
         android:layout_height="wrap_content"
         android:id="@+id/nav_menu"
         app:menu="@menu/bottom_navigation"/>

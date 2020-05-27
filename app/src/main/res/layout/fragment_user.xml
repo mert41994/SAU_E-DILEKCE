@@ -18,7 +18,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/textGrid"
             android:text="KULLANICI GİRİŞİ"
             android:textSize="30sp"

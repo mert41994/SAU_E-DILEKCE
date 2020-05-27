@@ -17,7 +17,7 @@
         android:layout_weight="4"
         app:srcCompat="@drawable/ic_icon_vector" />
 
-    <TextView
+    <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textGrid"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +30,7 @@
         android:textColor="@android:color/white"
         android:textSize="30sp"
         />
+
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -47,6 +48,4 @@
         android:layout_marginRight="50dp"
         android:layout_marginBottom="50dp"
         />
-
-
 </LinearLayout>

@@ -6,7 +6,7 @@
   <path
       android:strokeWidth="0"
       android:pathData="M0.5,0.5h1080v1919h-1080z"
-      android:fillColor="@color/colorPrimaryDark"
+      android:fillColor="@color/colorBackgroundLight"
       android:strokeColor="#000000"/>
   <path
       android:strokeWidth="0"
