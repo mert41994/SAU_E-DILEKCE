@@ -1,4 +1,4 @@
-# CreatePDFKotlin
+# SAU E-Dilekce
 
 This app creates PDF files with user inputs. Gets info and signature data from user and creates PDF files with them.
 
