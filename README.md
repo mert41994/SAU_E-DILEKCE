@@ -11,3 +11,5 @@ UserFragment.kt : Gets User Info Input and writes that data to SharedPreferences
 SignatureFragment.kt : Gets User Signature with a SignaturePad -> Operational
 
 MainFragment : Creates PDF Files.
+
+Full Documentation (Turkish) : https://drive.google.com/file/d/159boGdzrbEU3QjoK37EehkpWttYVabLH/view?usp=sharing
